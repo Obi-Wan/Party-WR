@@ -1,0 +1,130 @@
+
+
+body {
+    color : black;
+    font-family : Verdana, Arial, Helvetica;
+    font-size : 1.0em;
+    opacity : .85;
+    text-align : center;
+  }
+
+
+div.mainBox {
+    margin-bottom : 20px;
+    margin-left : auto;
+    margin-right : auto;
+    margin-top : 20px;
+    position : relative;
+    width : 800px;
+    z-index : 5;
+  }
+
+
+img.logo {
+    position : absolute;
+    height : 285px;
+    width : 278px;
+    left: 0px;
+    top: 7px;
+    z-index : 5;
+  }
+
+
+img.approved {
+    float : right;
+    width : 15%;
+    height:auto;
+    position : fixed;
+    right:0px;
+    z-index : 10;
+  }
+
+
+div.banner {
+    background-image : url('sfondoTitolo.png');
+    background-position : center center;
+    background-repeat : repeat-x;
+    height : 285px;
+    margin-left : auto;
+    margin-right : auto;
+    width : 522px;
+    position : absolute;
+    right : 0px;
+    top : 7px;
+    z-index : 5;
+  }
+
+
+img.banner {
+    top : 30px;
+    left : -55px;
+    height : 148px;
+    width : 577px;
+    position: relative;
+    z-index : 5;
+  }
+
+
+div.blocco_centrale {
+    background-image : url('sfondo_corpo.png');
+    background-position : center center;
+    background-repeat : repeat-y;
+    left : 0px;
+    position : absolute;
+    top : 292px;
+    width : 800px;
+    text-align : center;
+  }
+
+
+div.corpo {
+    width : 490px;
+    float:right;
+    padding-top : 10px;
+    padding-bottom : 10px;
+    margin-top : 5px;
+    margin-right : 15px;
+    font-size : 1.3em;
+    font-family:cursive;
+    text-align : center;
+  }
+
+div.corpo2 {
+    top : 0px;
+    right : 15px;
+    width : 490px;
+    height: 550px;
+    position:absolute;
+    overflow : auto;
+    padding-top : 10px;
+    padding-bottom : 10px;
+    font-size : 1.3em;
+    font-family:cursive;
+    text-align : center;
+}
+
+img.dark_layer {
+    display : none;
+    position : fixed;
+    height : 100%;
+    width : 100%;
+    z-index : 50;
+    left : 0px;
+    top : 0px;
+  }
+
+
+img.close_button:hover {
+    cursor : pointer;
+  }
+
+
+img.previous_button:hover {
+    cursor : pointer;
+  }
+
+
+img.next_button:hover {
+    cursor : pointer;
+  }
+

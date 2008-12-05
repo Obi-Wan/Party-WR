@@ -1,0 +1,22 @@
+<?xml version='1.0' standalone='yes'?>
+<contatti>
+  <body> <!-- This is the body, where you put the contents and refs to images. -->
+    <contents>Sample text for this section used as contact with people
+      [img id=0]
+      Here you saw how images work.
+      
+      Another snippet of sample text
+      
+      
+    </contents>
+    <style>text-align: left;</style>
+  </body>
+  <images> <!-- List of images and attributes -->
+    <item>
+      <src>/button_posta_normal.png</src> <!-- Where to get the image -->
+      <style>max-width:100%;</style> <!-- Style here -->
+      <hover>true</hover> <!-- Does it apply hover effect? -->
+      <template>true</template> <!-- Is this image part of the template? -->
+    </item>
+  </images>
+</contatti>

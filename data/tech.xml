@@ -1,0 +1,48 @@
+<?xml version='1.0' standalone='yes'?>
+<tech>
+  <body>
+    <contents>In questa sezione verranno discussi alcuni dettagli tecnici relativi al sito e alla sua realizzazione.
+      
+      Innanzitutto va segnalato che questo sito [img id=0] supera la validazione XHTML e in quanto tale è conforme allo standard "XHTML 1.0 strict". (mi son fatto il culo quadro per renderlo tecnicamente impeccabile... è quindi giusto che lo sappiate!)
+      
+      [img id=1]In secondo luogo colgo l'occasione per invogliare la gente a non usare Internet Explorer, in favore di browser più evoluti come Mozilla Firefox. Durante la realizzazione di questo sito, per venire meno alle limitatezze tecniche di Internet Exploder e fare in modo che anche chi lo usasse potesse vedere il sito in maniera decente e ci potesse navigare, sono stato costretto a fare i salti mortali.
+      Internet Exploder infatti [u]NON rispetta gli standard[/u], e interpreta tutto a modo suo!
+      Ne sconsiglio quindi l'utilizzo!
+      
+      Infine vorrei chiarire alcuni punti sulla tecnologia software utilizzata: per generare le pagine ho utilizzato l'interprete PHP [img id=2] scrivendomi le classi da zero, seguendo un modello di sviluppo pianificato a priori, e per immagazzinare i dati ho scelto di utilizzare dei file xml, il cui DTD è stato creato appositamente da me per l'utilizzo specifico in cui sono stati impiegati.
+      Da questo si può dedurre quindi che non ho utilizzato nessun CMS, ma ho scritto tutto il codice a mano e da zero. [img id=3]A breve sarà aperto un progetto su berlios ( http://www.berlios.de ) e il codice sarà rilasciato secondo la licenza GPLv2. Lo sviluppo proseguirà poi nei mesi futuri, in quanto c'è ancora molto lavoro da fare per ritenere questo progetto concluso.
+      
+      Buona navigazione.
+      
+      
+      
+    </contents>
+    <style>text-align: left;</style>
+  </body>
+  <images>
+    <item>
+      <src>http://www.w3.org/Icons/valid-xhtml10</src>
+      <style>height:31px; width:88px; float:right; margin: 5px;</style>
+      <hover>false</hover>
+      <template>false</template>
+    </item>
+    <item>
+      <src>images/get-firefox.jpg</src>
+      <style>height:auto; width:200px; float:left; margin: 5px;</style>
+      <hover>false</hover>
+      <template>false</template>
+    </item>
+    <item>
+      <src>images/php.gif</src>
+      <style>height:auto; width:120px; float:right; margin: 5px;</style>
+      <hover>false</hover>
+      <template>false</template>
+    </item>
+    <item>
+      <src>images/bslogo.png</src>
+      <style>height:auto; width:124px; float:left; margin: 5px;</style>
+      <hover>false</hover>
+      <template>false</template>
+    </item>
+  </images>
+</tech>
