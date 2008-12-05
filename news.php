@@ -148,7 +148,7 @@ class News extends LayeredContents {
     print '          <div class="title_news_frame">'."\n";
     foreach ($this->theNews->unit as $unit) {
       print "            <div class=\"title_news\" id=\"$count\" onclick=\"initEffectFocus('$count')\">".
-            $this->getShortTimeStamp($unit->time)." ".htmlentities($unit->title,$ENT_QUOTES,"utf-8")."</div>\n";
+            $this->getShortTimeStamp($unit->time)." ".htmlentities($unit->title,ENT_QUOTES,"utf-8")."</div>\n";
       $count++;
     }
     print "          </div>\n";
@@ -163,7 +163,7 @@ class News extends LayeredContents {
     $output = '          <div class="title_news_frame">'."\n";
     foreach ($this->theNews->unit as $unit) {
       $output .= "            <div class=\"title_news\">".$this->getShortTimeStamp($unit->time)." ".
-            htmlentities($unit->title,$ENT_QUOTES,"utf-8")."</div>\n";
+            htmlentities($unit->title,ENT_QUOTES,"utf-8")."</div>\n";
       //print_r (split(" ",$unit->time));
     }
     $output "          </div>\n";

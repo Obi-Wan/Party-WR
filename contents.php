@@ -32,7 +32,7 @@ abstract class Contents {
    * @return semi cooked content.
    */
   public function lightCooking( $rawString ) {
-    return str_replace("\n","<br />", htmlentities($rawString,$ENT_QUOTES,"utf-8") );
+    return str_replace("\n","<br />", htmlentities($rawString,ENT_QUOTES,"utf-8") );
   }
   
   /** Applies the bbCode formatting
