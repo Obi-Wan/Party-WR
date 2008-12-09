@@ -14,43 +14,54 @@ class DiskIO {
    */
   function __construct () {
     /* check the sane dir structure */
-    
+
     /* first of all find all the galleries */
-    if ($handle = opendir("gallery")) {
-      //eseguo un loop per individuare tutti i file della directory
-      while (false !== ($file = readdir($handle))) { 
-        if (!in_array($file,array(".",".."))) {
-          $this->galleries[] = $file;
+    $dirRef = new DirectoryIterator("gallery");
+    if ($dirRef) {
+      foreach ($dirRef as $iterDir) {
+        if ($iterDir->isDir() && (! $iterDir->isDot())){
+          $this->galleries[] = $iterDir->getFilename();
         }
       }
-      closedir($handle);
+    } else {
+      unset ($dirRef);
+      throw new DirectoryStructureException(
+                                   "Directory gallery not found, but required");
     }
+    unset ($dirRef);
     sort($this->galleries);
     
     /* verify templates are in place */
-    if ($handle = opendir("templates")) {
-      //eseguo un loop per individuare tutti i file della directory
-      while (false !== ($file = readdir($handle))) { 
-        if (!in_array($file,array(".",".."))) {
-          $this->layouts[] = $file;
+    $dirRef = new DirectoryIterator("templates");
+    if ($dirRef) {
+      foreach ($dirRef as $iterDir) {
+        if ($iterDir->isDir() && (! $iterDir->isDot())){
+          $this->layouts[] = $iterDir->getFilename();
         }
       }
-      closedir($handle);
+    } else {
+      unset ($dirRef);
+      throw new DirectoryStructureException(
+                                 "Directory templates not found, but required");
     }
+    unset ($dirRef);
     
     /* verify contents are in place */
-    if ($handle = opendir("data")) {
-      //eseguo un loop per individuare tutti i file della directory
-      while (false !== ($file = readdir($handle))) { 
-        if (! (in_array($file,array(".","..")) || 0 ) ) {
-          //print "$file ";
-          $basename = split("\.",$file);  /* sono regular expression!!! */
-          //$this->dataContents[(split(".",$file))[0]] = "data/$file";
-          $this->dataContents[$basename[0]] = "data/$file";
+    $dirRef = new DirectoryIterator("data");
+    if ($dirRef) {
+      foreach ($dirRef as $iterDir) {
+        if ($iterDir->isFile() ){
+          $filename = $iterDir->getFilename();
+          $basename = split("\.",$filename);
+          $this->dataContents[$basename[0]] = "data/$filename";
         }
       }
-      closedir($handle);
+    } else {
+      unset ($dirRef);
+      throw new DirectoryStructureException(
+                                 "Directory data not found, but required");
     }
+    unset ($dirRef);
   }
   
   /** Retrieves the list of templates avaible
@@ -76,15 +87,14 @@ class DiskIO {
    */
   function getPhotosOfGallery ( $gallery_year ) {
     /* We open the dir and scan the files. */
-    if ($handle = opendir("gallery/$gallery_year")) {
-      while (false !== ($file = readdir($handle))) { 
-        /* all the other files are ok */
-        if (!in_array($file,array(".","..","thumbs"))) {
-          $listOfPhotos[] = $file;
-        }
+    $dirRef = new DirectoryIterator("gallery/{$gallery_year}");
+    foreach ($dirRef as $iterDir) {
+      if ($iterDir->isFile() ){
+        $listOfPhotos[] = $iterDir->getFilename();
       }
-      closedir($handle);
     }
+    unset ($dirRef);
+
     return $listOfPhotos;
   }
   

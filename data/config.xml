@@ -1,0 +1,30 @@
+<?xml version='1.0' standalone='yes'?>
+<config>
+  <sections>
+    <item>
+      <name>home</name>
+      <class>Home</class>
+    </item>
+    <item>
+      <name>news</name>
+      <class>News</class>
+    </item>
+    <item>
+      <name>gallery</name>
+      <class>Gallery</class>
+    </item>
+    <item>
+      <name>contatti</name>
+      <class>GenericNonLayeredContents</class>
+    </item>
+      <name>staff</name>
+      <class>GenericNonLayeredContents</class>
+    </item>
+      <name>tech</name>
+      <class>GenericNonLayeredContents</class>
+    </item>
+  </sections>
+  <platform>
+     <has>SPL</has>
+  </platform>
+</config>

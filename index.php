@@ -11,7 +11,13 @@ if (!defined("MENU_CLASS") ){
 }
 
 /* We do instantiate the first needed objects. */
-$ioResource = new DiskIO();
+try {
+  $ioResource = new DiskIO();
+} catch (Exception $e) {
+  print "Errors happened while initializing contents Dirs:\n".
+        "$e->getMessage()";
+}
+
 $hoverHandler = new HoverEffect();
 
 /* We are now interested in finding which template was chosen */
