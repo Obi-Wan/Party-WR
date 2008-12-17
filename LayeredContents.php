@@ -2,9 +2,7 @@
 
 define("LAYERED_CONTENTS_CLASS","1");
 
-if (!defined("CONTENTS_CLASS")) {
-  include 'contents.php';
-}
+include_once 'Contents.php';
 
 /** Stub class that gives the structure of how will be organized classes that make avaible layers for 
  * data visualization.

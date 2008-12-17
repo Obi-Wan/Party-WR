@@ -2,12 +2,8 @@
 
 define("GENERIC_NON_LAYERED_CONTENTS_CLASS","1");
 
-if (!defined("STD_USEFUL_DATA_STRUCT")) {
-  include 'std_useful_data.php';
-}
-if (!defined("NON_LAYERED_CONTENTS_CLASS")) {
-  include 'non_layered_contents.php';
-}
+include_once 'StdUsefulData.php';
+include_once 'NonLayeredContents.php';
 
 /** Generic class that displays generic text content, appling generic processing
  */

@@ -1,5 +1,6 @@
 <?xml version='1.0' standalone='yes'?>
-<config>
+<config version="1.0">
+  <title>Nobody^s_Party</title>
   <sections>
     <item>
       <name>home</name>
@@ -17,14 +18,16 @@
       <name>contatti</name>
       <class>GenericNonLayeredContents</class>
     </item>
+    <item>
       <name>staff</name>
       <class>GenericNonLayeredContents</class>
     </item>
+    <item>
       <name>tech</name>
       <class>GenericNonLayeredContents</class>
     </item>
   </sections>
   <platform>
-     <has>SPL</has>
+    <has>SPL</has>
   </platform>
 </config>

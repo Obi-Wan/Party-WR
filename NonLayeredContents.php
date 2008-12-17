@@ -2,9 +2,7 @@
 
 define("NON_LAYERED_CONTENTS_CLASS","1");
 
-if (!defined("CONTENTS_CLASS")) {
-  include 'contents.php';
-}
+include_once 'Contents.php';
 
 /** Class that gives the structure of classes that retrieve non layered contents.
  */
@@ -26,14 +24,22 @@ abstract class NonLayeredContents extends Contents {
     /* For every image it checks in the body if it's called and substitutes it. */
     if (is_array($this->images)) {
       for ($count = 0;$count <= max(array_keys($this->images));$count++) {
-        if ($this->images[$count]->hover == "true") {
-          $this->theHover->addHoveredImage($this->images[$count]->src,str_replace("normal","hover",
-                                                                      $this->images[$count]->src),"img{$count}");
+        $isInTemplate = ($this->images[$count]->template == "true");
+        $needsHover = ($this->images[$count]->hover == "true");
+
+        $imageSrc = (($isInTemplate) ? $this->template : "") ;
+        $imageSrc .= $this->images[$count]->src;
+        if ($needsHover) {
+          $this->theHover->addHoveredImage($imageSrc,
+                         str_replace("normal","hover",$imageSrc),"img{$count}");
         }
-        $this->bodyCooked = str_replace("[img id=$count]","<img id=\"img{$count}\" alt=\"img{$count}\" src=\"".
-                    ( ($this->images[$count]->template == "true") ? $this->template : "").$this->images[$count]->src .
+        $this->bodyCooked = str_replace("[img id=$count]",
+                    "<img id=\"img{$count}\" alt=\"img{$count}\" src=\"".
+                    ( ($isInTemplate) ? $this->template : "").$imageSrc .
                     "\" style=\"".$this->images[$count]->style.'" '.
-                    ( ($this->images[$count]->hover == "true") ? "onmouseover=\"mouseOver('img{$count}')\" onmouseout=\"mouseOut('img{$count}')\"" : "")." />",$this->bodyCooked);
+                    ( ($needsHover) ? "onmouseover=\"mouseOver('img{$count}')\"".
+                    " onmouseout=\"mouseOut('img{$count}')\"" : "")." />",
+                    $this->bodyCooked);
       }
     }
   }

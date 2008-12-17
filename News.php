@@ -2,12 +2,8 @@
   // Classe per l'estrazione delle news e la visualizzazione delle stesse.
 define("NEWS_CLASS","1");
 
-if (!defined("DISK_IO_CLASS")) {
-  include 'disk_io.php';
-}
-if (!defined("LAYERED_CONTENTS_CLASS")) {
-  include 'layered_contents.php';
-}
+include_once 'DiskIO.php';
+include_once 'LayeredContents.php';
 
 /** Nice handler for news visualization.
  */
@@ -117,11 +113,8 @@ class News extends LayeredContents {
   
   public function getLayers() {
     $closeButtonNormal = "{$this->template}/button_close_normal.png";
-    $closeButtonHover = "{$this->template}/button_close_hover.png";
     $previousButtonNormal = "{$this->template}/button_previous_normal.png";
-    $previousButtonHover = "{$this->template}/button_previous_hover.png";
     $nextButtonNormal = "{$this->template}/button_next_normal.png";
-    $nextButtonHover = "{$this->template}/button_next_hover.png";
     
     print '    <img id="darkLayer" class="dark_layer" src="' . $this->template . '/dark_layer.png" />' . "\n" .
           '    <img id="displayerFrameBackground" class="displayer_frame_background" src="' . $this->template .

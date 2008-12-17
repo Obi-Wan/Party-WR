@@ -2,15 +2,9 @@
 
 define("MENU_CLASS","1");
 
-if (!defined("HOVER_EFFECT_FUNCTIONS") ){
-  include 'hover_effect.php';
-}
-if (!defined("DISK_IO_CLASS")) {
-  include 'disk_io.php';
-}
-if (!defined("BANNER_CLASS") ){
-  include 'banner.php';
-}
+include_once 'HoverEffect.php';
+include_once 'DiskIO.php';
+include_once 'Banner.php';
 
 /** This class is responsible for menu organization and visualization
  */

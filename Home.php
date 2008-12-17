@@ -2,12 +2,8 @@
 
 define("HOME_CLASS","1");
 
-if (!defined("DISK_IO_CLASS")) {
-  include 'disk_io.php';
-}
-if (!defined("NON_LAYERED_CONTENTS_CLASS")) {
-  include 'non_layered_contents.php';
-}
+include_once 'DiskIO.php';
+include_once 'NonLayeredContents.php';
 
 /** Class similar the the GenericNonLayeredContents dut this handles title and subtitle, too.
  */
