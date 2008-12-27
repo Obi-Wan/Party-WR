@@ -32,14 +32,17 @@ class PartyWR {
 
   public function __construct() {
 
-    /* We do instantiate the first needed objects. */
     try {
-      $this->ioResource = new DiskIO();
+      $this->initComponents();
     } catch (DirectoryStructureException $ex) {
       print "Errors happened while initializing contents Dirs:\n".
             "$ex->getMessage()";
     }
-
+  }
+  
+  private function initComponents() {
+    $this->ioResource = new DiskIO();
+    
     $this->hoverHandler = new HoverEffect();
 
     $this->loadConfig();
@@ -62,6 +65,7 @@ class PartyWR {
 
     /* Menu instantiated and created (not shown) */
     $this->theMenu = new Menu($this->data);
+    $this->theMenu->setSiteStructure($this->siteStructure);
     $this->builtMenu = $this->theMenu->getMenu(); // FIXME change this behavior
 
     include_once 'Banner.php';
@@ -128,7 +132,7 @@ class PartyWR {
     $this->contentsManager->getCss();
 
     $this->hoverHandler->initHoveredCache();
-    $this->hoverHandler->printNewHoverFunctions();
+    $this->hoverHandler->printHoverFunctions();
 
     $this->theMenu->printFoldingJS();
     if ($this->contentsManager->hasLayers()) {
@@ -143,7 +147,7 @@ class PartyWR {
   }
   
   public function printBody() {
-    print "      <body>\n";
+    print "  <body>\n";
     if ($this->contentsManager->hasLayers()) $this->contentsManager->getLayers();
     print "    <div class=\"mainBox\">\n";
     print "      <img src=\"images/PartyHardApproved.png\" class=\"approved\" alt=\"\" />\n"; /*this is just a mark*/

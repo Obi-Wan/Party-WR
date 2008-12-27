@@ -13,11 +13,16 @@ class Menu {
   protected $galleries;
   protected $template;
   protected $theHover;
+  protected $siteStructure;
   
   function __construct ( StdUsefulData $data ) {
     $this->galleries = $data->ioResource->getGalleries ();
     $this->template = $data->templateDir;
     $this->theHover = $data->hoverHandler;
+  }
+
+  function setSiteStructure($siteStructure) {
+    $this->siteStructure = $siteStructure;
   }
 
   function printFoldingJS() {
@@ -50,7 +55,7 @@ class Menu {
 <?php
   }
 
-  function getMenu() {
+  function getMenuOld() {
     $output = '        <form method="post" action="index.php" class="menu"><div class="menu">' . "\n";
     
     $output .= $this->printLeafButtonMenu("home");
@@ -67,6 +72,25 @@ class Menu {
     $output .= $this->printLeafButtonMenu("tech");
     
 //    $output .= Banner::placeMenuBanner();
+    $output .= "        </div></form>\n";
+    return $output;
+  }
+  
+  public function getMenu() {
+    $output = '        <form method="post" action="index.php" class="menu"><div class="menu">' . "\n";
+    
+    foreach ($this->siteStructure as $name => $class_type) {
+      if ($class_type == "Gallery") {
+        $output .= $this->printRootButtonMenu($name);
+        foreach ($this->galleries as $gallery_year) {
+          $output .= $this->printLeafButtonSubmenu($name,$gallery_year);
+        }
+      } else {
+        $output .= $this->printLeafButtonMenu($name);
+      }
+    }
+    
+    $output .= Banner::placeMenuBanner();
     $output .= "        </div></form>\n";
     return $output;
   }

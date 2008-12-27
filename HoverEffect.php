@@ -29,24 +29,7 @@ class HoverEffect {
     print "  </script>\n";
   }
   
-  static public function printHoverFunctions() {
-?>
-  <script type="text/javascript">
-    function mouseOver( idOgg ) {
-      var elem = document.getElementById( idOgg );
-      var elemNewSrc = new String(elem.src);
-      elem.src = elemNewSrc.replace("normal","hover");
-    }
-    function mouseOut( idOgg ) {
-      var elem = document.getElementById( idOgg );
-      var elemNewSrc = new String(elem.src);
-      elem.src = elemNewSrc.replace("hover","normal");
-    }
-  </script>
-<?php
-  }
-  
-  public function printNewHoverFunctions() {
+  public function printHoverFunctions() {
 ?>
   <script type="text/javascript">
     function mouseOver( idOgg ) {
