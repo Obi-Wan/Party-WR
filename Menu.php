@@ -82,15 +82,15 @@ class Menu {
     foreach ($this->siteStructure as $name => $class_type) {
       if ($class_type == "Gallery") {
         $output .= $this->printRootButtonMenu($name);
-        foreach ($this->galleries as $gallery_year) {
-          $output .= $this->printLeafButtonSubmenu($name,$gallery_year);
+        foreach ($this->galleries as $subgallery) {
+          $output .= $this->printLeafButtonSubmenu($name,$subgallery);
         }
       } else {
         $output .= $this->printLeafButtonMenu($name);
       }
     }
     
-    $output .= Banner::placeMenuBanner();
+//    $output .= Banner::placeMenuBanner();
     $output .= "        </div></form>\n";
     return $output;
   }
