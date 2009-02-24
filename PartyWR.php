@@ -6,10 +6,11 @@
 
 define("PARTYWR_CLASS","1");
 
-include_once 'StdUsefulData.php';
+include_once 'Structs/StdUsefulData.php';
 include_once 'Menu.php';
 include_once 'HoverEffect.php';
 include_once 'DiskIO.php';
+include_once 'Layout.php';
 
 
 /**
@@ -21,6 +22,7 @@ class PartyWR {
 
   private $ioResource;
   private $hoverHandler;
+  private $layoutMananger;
   private $data;
   private $template;
   private $contentsManager;
@@ -47,17 +49,9 @@ class PartyWR {
 
     $this->loadConfig();
 
-    // TODO crea un oggetto che si occupi della gestione dei template
-    
-    /* We are now interested in finding which template was chosen */
-    if ( /* If no template chosen, or it's not between the ones installed.. */
-        $chosen_template == "" ||
-        ( ! in_array( $chosen_template , $this->ioResource->getTemplates() ) )
-       )
-    { /* We do fallback to default */
-      $chosen_template = "default";
-    }
-    $this->template = "templates/{$chosen_template}";
+    // TODO delega la gestione della formattazione tutta al layoutManager
+    $this->layoutMananger = new Layout("templates",$this->ioResource,$this->hoverHandler);
+    $this->template = $this->layoutMananger->getChosenTemplate();
 
     $this->data = new StdUsefulData($this->ioResource,$this->template,$this->hoverHandler);
     
@@ -66,7 +60,7 @@ class PartyWR {
     /* Menu instantiated and created (not shown) */
     $this->theMenu = new Menu($this->data);
     $this->theMenu->setSiteStructure($this->siteStructure);
-    $this->builtMenu = $this->theMenu->getMenu(); // FIXME change this behavior
+    $this->builtMenu = $this->layoutMananger->generateMenu($this->theMenu->getMenu());
 
     include_once 'Banner.php';
   }
