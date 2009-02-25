@@ -100,27 +100,28 @@ class Gallery extends LayeredContents {
     $closeButtonNormal = "{$this->template}/button_close_normal.png";
     $previousButtonNormal = "{$this->template}/button_previous_normal.png";
     $nextButtonNormal = "{$this->template}/button_next_normal.png";
-    print '    <img id="darkLayer" class="dark_layer" src="' . $this->template . '/dark_layer.png" />' . "\n" .
-          '    <img id="displayerFrameBackground" class="displayer_frame_background" src="' . $this->template .
-          '/sfondo_photo_frame.png" />' . "\n" .
-          '    <div id="displayerFrame" class="displayer_frame">' . "\n" .
-          '      <img id="close" class="close_button" src="' . $closeButtonNormal . '" ' .
-          'onclick="removePhotoFocus()" onmouseover="mouseOver(\'close\')" onmouseout="mouseOut(\'close\')" />'."\n".
-          '        <img id="photoObject" class="photo_object" src="' . $this->template . '/blank.png" />' . "\n" .
-          '      <img id="previous" class="previous_button" src="' . $previousButtonNormal .
-          '" onclick="previousPhoto()" onmouseover="mouseOver(\'previous\')" ' .
-          'onmouseout="mouseOut(\'previous\')" />' . "\n" .
-          '      <img id="next" class="next_button" src="' . $nextButtonNormal . '" onclick="nextPhoto()" '.'onmouseover="mouseOver(\'next\')" onmouseout="mouseOut(\'next\')" />' . "\n" .
-          "    </div>\n";
+    return '    <img id="darkLayer" class="dark_layer" src="' . $this->template . '/dark_layer.png" />' . "\n" .
+           '    <img id="displayerFrameBackground" class="displayer_frame_background" src="' . $this->template .
+           '/sfondo_photo_frame.png" />' . "\n" .
+           '    <div id="displayerFrame" class="displayer_frame">' . "\n" .
+           '      <img id="close" class="close_button" src="' . $closeButtonNormal . '" ' .
+           'onclick="removePhotoFocus()" onmouseover="mouseOver(\'close\')" onmouseout="mouseOut(\'close\')" />'."\n".
+           '        <img id="photoObject" class="photo_object" src="' . $this->template . '/blank.png" />' . "\n" .
+           '      <img id="previous" class="previous_button" src="' . $previousButtonNormal .
+           '" onclick="previousPhoto()" onmouseover="mouseOver(\'previous\')" ' .
+           'onmouseout="mouseOut(\'previous\')" />' . "\n" .
+           '      <img id="next" class="next_button" src="' . $nextButtonNormal . '" onclick="nextPhoto()" '.'onmouseover="mouseOver(\'next\')" onmouseout="mouseOut(\'next\')" />' . "\n" .
+           "    </div>\n";
   }
 
   public function getContents() {
     $count = 0;
     foreach ($this->listOfPhotos as $thisPhoto) {
-      print '          <img class="gallery_photo_thumb" id="' . $count . '" alt="' . $count . '" src="' .
+      $output .= '          <img class="gallery_photo_thumb" id="' . $count . '" alt="' . $count . '" src="' .
             "$this->photosPath/thumbs/$thisPhoto" . '" onclick="initPhotoFocus(\'' . $count . '\')" />' . "\n";
       $count++;
     }
+    return $output;
   }
 } 
 ?>

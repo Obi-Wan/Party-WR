@@ -56,6 +56,7 @@ class PartyWR {
     $this->data = new StdUsefulData($this->ioResource,$this->template,$this->hoverHandler);
     
     $this->contentsManager = $this->getContentsManager();
+    $this->layoutMananger->setContentsManager($this->contentsManager);
 
     /* Menu instantiated and created (not shown) */
     $this->theMenu = new Menu($this->data);
@@ -142,24 +143,7 @@ class PartyWR {
   }
   
   public function printBody() {
-    print "  <body>\n";
-    if ($this->contentsManager->hasLayers()) $this->contentsManager->getLayers();
-    print "    <div class=\"mainBox\">\n";
-    print "      <img src=\"images/PartyHardApproved.png\" class=\"approved\" alt=\"\" />\n"; /*this is just a mark*/
-    //  print Banner::putSmallBanner();
-    print "      <img src=\"{$this->template}/angoloDefWide.png\" class=\"logo\" alt=\"Logo\" />\n";
-    print "      <div class=\"banner\">\n";
-    print "        <img src=\"{$this->template}/titolo_pieno.png\" class=\"banner\" alt=\"banner\" />\n";
-    print "      </div>\n";
-    print "      <div class=\"blocco_centrale\">\n";
-    print "$this->builtMenu";
-    print "        <div class=\"corpo\">\n";
-    $this->contentsManager->getContents();
-    print "        </div>\n";
-    // print Banner::placeLowerBanner();
-    print "      </div>\n";
-    print "    </div>\n";
-    print "  </body>\n";
+      $this->layoutMananger->generateBody();
   }
 }
 ?>

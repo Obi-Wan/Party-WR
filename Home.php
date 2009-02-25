@@ -28,9 +28,10 @@ class Home extends NonLayeredContents {
   }
   
   public function getContents() {
-    print "<h1>$this->title</h1>\n" .
-          "<h2>$this->subtitle</h2>\n";
-    parent::getContents();
+    $output = "<h1>$this->title</h1>\n" .
+              "<h2>$this->subtitle</h2>\n";
+    $output .= parent::getContents();
+    return $output;
   }
   
   public function getCss() {

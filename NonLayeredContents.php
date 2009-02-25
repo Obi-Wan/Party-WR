@@ -47,7 +47,7 @@ abstract class NonLayeredContents extends Contents {
   /** Retrieves the already cooked and formetted text.
    */
   public function getContents() {
-    print "<h3 style=\"{$this->body->style}\">{$this->bodyCooked}</h3>\n";
+    return "<h3 style=\"{$this->body->style}\">{$this->bodyCooked}</h3>\n";
   }
   
   /** Implements the abstract method

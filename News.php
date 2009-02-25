@@ -116,53 +116,42 @@ class News extends LayeredContents {
     $previousButtonNormal = "{$this->template}/button_previous_normal.png";
     $nextButtonNormal = "{$this->template}/button_next_normal.png";
     
-    print '    <img id="darkLayer" class="dark_layer" src="' . $this->template . '/dark_layer.png" />' . "\n" .
-          '    <img id="displayerFrameBackground" class="displayer_frame_background" src="' . $this->template .
-          '/sfondo_news_frame.png" />' . "\n" .
-          '    <div id="displayerFrame" class="displayer_frame">' . "\n" .
-          '      <img id="close" class="close_button" src="'.$closeButtonNormal.'" onclick="removeEffectFocus()" '.
-          'onmouseover="mouseOver(\'close\')" onmouseout="mouseOut(\'close\')" />'."\n".
-          '      <div id="" class="item_frame"> ' . "\n" .
-          '        <p><b>Title:</b> <i id="title_in_frame"> </i></p>'. "\n" .
-          '        <p><b>Time:</b> <i id="time_in_frame"> </i></p>'. "\n" .
-          '        <p><b>Cathegory:</b> <i id="cathegory_in_frame"> </i></p>'. "\n" .
-          '        <p><b>Description:</b> <i id="description_in_frame"> </i></p>'. "\n" .
-          '      </div>' . "\n" .
-          '      <img id="previous" class="previous_button" src="'.$previousButtonNormal.
-          '" onclick="previousItem()" onmouseover="mouseOver(\'previous\')" onmouseout="mouseOut(\'previous\')" />'.
-          "\n" .
-          '      <img id="next" class="next_button" src="' . $nextButtonNormal . '" onclick="nextItem()" '.
-          'onmouseover="mouseOver(\'next\')" onmouseout="mouseOut(\'next\')" />' . "\n" .
-          "    </div>\n";
+    return '    <img id="darkLayer" class="dark_layer" src="' . $this->template . '/dark_layer.png" />' . "\n" .
+           '    <img id="displayerFrameBackground" class="displayer_frame_background" src="' . $this->template .
+           '/sfondo_news_frame.png" />' . "\n" .
+           '    <div id="displayerFrame" class="displayer_frame">' . "\n" .
+           '      <img id="close" class="close_button" src="'.$closeButtonNormal.'" onclick="removeEffectFocus()" '.
+           'onmouseover="mouseOver(\'close\')" onmouseout="mouseOut(\'close\')" />'."\n".
+           '      <div id="" class="item_frame"> ' . "\n" .
+           '        <p><b>Title:</b> <i id="title_in_frame"> </i></p>'. "\n" .
+           '        <p><b>Time:</b> <i id="time_in_frame"> </i></p>'. "\n" .
+           '        <p><b>Cathegory:</b> <i id="cathegory_in_frame"> </i></p>'. "\n" .
+           '        <p><b>Description:</b> <i id="description_in_frame"> </i></p>'. "\n" .
+           '      </div>' . "\n" .
+           '      <img id="previous" class="previous_button" src="'.$previousButtonNormal.
+           '" onclick="previousItem()" onmouseover="mouseOver(\'previous\')" onmouseout="mouseOut(\'previous\')" />'.
+           "\n" .
+           '      <img id="next" class="next_button" src="' . $nextButtonNormal . '" onclick="nextItem()" '.
+           'onmouseover="mouseOver(\'next\')" onmouseout="mouseOut(\'next\')" />' . "\n" .
+           "    </div>\n";
   }
   
   public function getContents() {
     $count = 0;
-    print '          <div class="title_news_frame">'."\n";
+    $output = '          <div class="title_news_frame">'."\n";
     foreach ($this->theNews->unit as $unit) {
-      print "            <div class=\"title_news\" id=\"$count\" onclick=\"initEffectFocus('$count')\">".
+      $output .= "            <div class=\"title_news\" id=\"$count\" onclick=\"initEffectFocus('$count')\">".
             $this->getShortTimeStamp($unit->time)." ".htmlentities($unit->title,ENT_QUOTES,"utf-8")."</div>\n";
       $count++;
     }
-    print "          </div>\n";
+    $output .= "          </div>\n";
+    return $output;
   }
   
   private function getShortTimeStamp($rawTS) {
     $tempTS = split(" ",$rawTS);
     return "$tempTS[2]/$tempTS[1]/$tempTS[5]";
   }
-  
-/*  function getContents() {
-    $output = '          <div class="title_news_frame">'."\n";
-    foreach ($this->theNews->unit as $unit) {
-      $output .= "            <div class=\"title_news\">".$this->getShortTimeStamp($unit->time)." ".
-            htmlentities($unit->title,ENT_QUOTES,"utf-8")."</div>\n";
-      //print_r (split(" ",$unit->time));
-    }
-    $output "          </div>\n";
-    
-    return $output; 
-  }*/
 }
 
 ?>

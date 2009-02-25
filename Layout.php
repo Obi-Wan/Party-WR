@@ -14,9 +14,11 @@ include_once 'Banner.php';
  */
 class Layout {
     private $foldingMenus;
+    private $builtMenu;
 
     private $layoutsDir;
     private $chosenTemplate;
+    
     private $hoverHandler;
     private $contentsManager;
 
@@ -35,37 +37,7 @@ class Layout {
         }
     }
 
-    public function generateMenu($menuStructure) {
-        $output = '        <form method="post" action="index.php" '.
-                  'class="menu"><div class="menu">' . "\n";
-        foreach ($menuStructure as $menuEntry) {
-            switch ($menuEntry["button_type"]) {
-                case "button_menu": {
-                    $output .= $this->generateButtMenu($menuEntry);
-                    break;
-                }
-                case "button_expandable": {
-                    $output .= $this->generateButtExpandable($menuEntry);
-                    $newFoldingRoot["name"] = $menuEntry["name"];
-                    foreach ($menuEntry["subitems"] as $item) {
-                        $output .= $this->generateButtSubmenu($item);
-                        $newFoldingRoot["leaves"][] = "{$item["root"]}_{$item["leaf"]}";
-                    }
-                    $this->foldingMenus[] = $newFoldingRoot;
-                    unset ($newFoldingRoot);
-                    break;
-                }
-                default: {
-                    print "Elemento non classificato!!<br/>";
-                    /* lancia eccezione! */
-                }
-            }
-        };
-
-//        $output .= Banner::placeMenuBanner();
-        $output .= "        </div></form>\n";
-        return $output;
-    }
+    /* JavaScript Functions */
 
     public function  generateFoldingJS() {
 ?>
@@ -103,6 +75,41 @@ class Layout {
       }
     </script>
 <?php
+    }
+
+    /* Menu Functions */
+
+    public function generateMenu($menuStructure) {
+        $output = '        <form method="post" action="index.php" '.
+                  'class="menu"><div class="menu">' . "\n";
+        foreach ($menuStructure as $menuEntry) {
+            switch ($menuEntry["button_type"]) {
+                case "button_menu": {
+                    $output .= $this->generateButtMenu($menuEntry);
+                    break;
+                }
+                case "button_expandable": {
+                    $output .= $this->generateButtExpandable($menuEntry);
+                    $newFoldingRoot["name"] = $menuEntry["name"];
+                    foreach ($menuEntry["subitems"] as $item) {
+                        $output .= $this->generateButtSubmenu($item);
+                        $newFoldingRoot["leaves"][] = "{$item["root"]}_{$item["leaf"]}";
+                    }
+                    $this->foldingMenus[] = $newFoldingRoot;
+                    unset ($newFoldingRoot);
+                    break;
+                }
+                default: {
+                    print "Elemento non classificato!!<br/>";
+                    /* lancia eccezione! */
+                }
+            }
+        };
+
+//        $output .= Banner::placeMenuBanner();
+        $output .= "        </div></form>\n";
+        $this->builtMenu = $output; /* This will be in future the only admitted */
+        return $output;
     }
 
     private function generateButtMenu($buttonData) {
@@ -156,8 +163,32 @@ class Layout {
         $this->contentsManager = $cntMgr;
     }
 
-    public function generateHead($title, $cssFiles) {
+    public function generateHead($title, $additionalCssFiles) {
         ;
+    }
+
+    public function generateBody() {
+        $domDocument = new DOMDocument();
+        $domDocument->load(
+            "{$this->layoutsDir}/{$this->chosenTemplate}/{$this->chosenTemplate}.xml");
+        $node = $domDocument->getElementsByTagName("structure")->item(0);
+        $bodyContent = $node->textContent;
+
+        $bodyContent = str_replace("[MENU]",$this->builtMenu, $bodyContent );
+        $bodyContent = str_replace("[LAYERS]",
+            $this->contentsManager->hasLayers() ? 
+                $this->contentsManager->getLayers() :
+                "", 
+            $bodyContent );
+        $bodyContent = str_replace("[TEMPLATE]",
+            "{$this->layoutsDir}/{$this->chosenTemplate}", $bodyContent );
+        $bodyContent = str_replace("[CONTENTS]",
+            $this->contentsManager->getContents(), $bodyContent );
+
+        $bodyContent = str_replace("[BANNER-TOP]","", $bodyContent );
+        $bodyContent = str_replace("[BANNER-BOTTOM]","", $bodyContent );
+
+        print "$bodyContent";
     }
 }
 ?>
