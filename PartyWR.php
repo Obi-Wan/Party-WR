@@ -128,7 +128,8 @@ class PartyWR {
     $this->hoverHandler->initHoveredCache();
     $this->hoverHandler->printHoverFunctions();
 
-    $this->theMenu->printFoldingJS();
+    $this->layoutMananger->generateFoldingJS();
+
     if ($this->contentsManager->hasLayers()) {
       $this->contentsManager->getLayerFunctions();
     }

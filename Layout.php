@@ -13,9 +13,12 @@ include_once 'Banner.php';
  * @author ben
  */
 class Layout {
+    private $foldingMenus;
+
     private $layoutsDir;
     private $chosenTemplate;
     private $hoverHandler;
+    private $contentsManager;
 
     public function __construct($layouts, DiskIO $ioResource,
             HoverEffect $hoverEffect) {
@@ -41,12 +44,15 @@ class Layout {
                     $output .= $this->generateButtMenu($menuEntry);
                     break;
                 }
-                case "button_submenu": {
-                    $output .= $this->generateButtSubmenu($menuEntry);
-                    break;
-                }
                 case "button_expandable": {
                     $output .= $this->generateButtExpandable($menuEntry);
+                    $newFoldingRoot["name"] = $menuEntry["name"];
+                    foreach ($menuEntry["subitems"] as $item) {
+                        $output .= $this->generateButtSubmenu($item);
+                        $newFoldingRoot["leaves"][] = "{$item["root"]}_{$item["leaf"]}";
+                    }
+                    $this->foldingMenus[] = $newFoldingRoot;
+                    unset ($newFoldingRoot);
                     break;
                 }
                 default: {
@@ -59,6 +65,44 @@ class Layout {
 //        $output .= Banner::placeMenuBanner();
         $output .= "        </div></form>\n";
         return $output;
+    }
+
+    public function  generateFoldingJS() {
+?>
+    <script type="text/javascript">
+      var expandable = new Array();
+      var folded = new Array();
+<?php
+      foreach ($this->foldingMenus as $singleItem) {
+        print "      var ".$singleItem["name"]." = new Array();\n";
+        if ($singleItem["leaves"]) {
+          foreach ($singleItem["leaves"] as $subItem) {
+            print "      {$singleItem["name"]}.push('" . $subItem . "');\n";
+          }
+        }
+        
+        print "      expandable['{$singleItem["name"]}'] = {$singleItem["name"]};\n";
+        print "      folded['{$singleItem["name"]}'] = true;\n";
+      }
+?>
+    
+      function fold_unfold_expandable( branch, property ) {
+          for (i = 0; i < expandable[branch].length; i++) {
+              document.getElementById(expandable[branch][i]).style.display= property;
+          }
+      }
+
+      function fold_unfold( idOgg ) {
+        if (folded[idOgg]) {
+          fold_unfold_expandable(idOgg,"inline");
+          folded[idOgg] = false;
+        } else {
+          fold_unfold_expandable(idOgg,"none");
+          folded[idOgg] = true;
+        }
+      }
+    </script>
+<?php
     }
 
     private function generateButtMenu($buttonData) {
@@ -106,6 +150,14 @@ class Layout {
 
     public function getChosenTemplate() {
         return "$this->layoutsDir/$this->chosenTemplate";
+    }
+
+    function setContentsManager($cntMgr) {
+        $this->contentsManager = $cntMgr;
+    }
+
+    public function generateHead($title, $cssFiles) {
+        ;
     }
 }
 ?>
