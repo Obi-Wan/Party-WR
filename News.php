@@ -25,75 +25,75 @@ class News extends LayeredContents {
   
   public function getLayerFunctions() {
 ?>
-  <script type="text/javascript">
-    
-    function singleItem( title_n, time_n, cathegory_n, description_n) {
-      this.title = title_n;
-      this.time = time_n;
-      this.cathegory = cathegory_n;
-      this.description = description_n;
-    }
-    
-    var itemIndex = 0;
-    var itemsList = new Array (
+    <script type="text/javascript">
+
+      function singleItem( title_n, time_n, cathegory_n, description_n) {
+        this.title = title_n;
+        this.time = time_n;
+        this.cathegory = cathegory_n;
+        this.description = description_n;
+      }
+
+      var itemIndex = 0;
+      var itemsList = new Array (
 <?php
     foreach ($this->theNews->unit as $thisItem) {
-      print "      new singleItem('".parent::lightCooking($thisItem->title)."',\n\"".
+      print "        new singleItem('".parent::lightCooking($thisItem->title)."',\n\"".
             parent::lightCooking($thisItem->time)."\",\n\"".
             parent::lightCooking($thisItem->cathegory)."\",\n\"".
             parent::lightCooking($thisItem->description)."\"),\n";
     }  // ricorda che mentre php parte con indice 1, JS parte come il C da indice 0
-      print "      new singleItem('Fine News','','','Avete raggiunto la fine delle notizie')\n";
+      print "        new singleItem('Fine News','','','Avete raggiunto la fine delle notizie')\n";
 ?>
-                                );
-    function raiseEffectFocus() {
-      var darkLayer = document.getElementById('darkLayer');
-      var displayerFrame = document.getElementById('displayerFrame');
-      var displayerFrameBG = document.getElementById('displayerFrameBackground');
-      darkLayer.style.display = "inline";
-      displayerFrame.style.display = "inline";
-      displayerFrameBG.style.display = "inline";
-    }
-    function removeEffectFocus() {
-      var darkLayer = document.getElementById('darkLayer');
-      var displayerFrame = document.getElementById('displayerFrame');
-      var displayerFrameBG = document.getElementById('displayerFrameBackground');
-      darkLayer.style.display = "none";
-      displayerFrame.style.display = "none";
-      displayerFrameBG.style.display = "none";
-    }
-    function initEffectFocus( item_id ) {
-      itemIndex = item_id;
-      putItem();
-      raiseEffectFocus();
-    }
-    function putItem() {
-      var title_in_frame = document.getElementById('title_in_frame');
-      var time_in_frame = document.getElementById('time_in_frame');
-      var cathegory_in_frame = document.getElementById('cathegory_in_frame');
-      var description_in_frame = document.getElementById('description_in_frame');
-      title_in_frame.innerHTML = itemsList[itemIndex].title;
-      time_in_frame.innerHTML = itemsList[itemIndex].time;
-      cathegory_in_frame.innerHTML = itemsList[itemIndex].cathegory;
-      description_in_frame.innerHTML = itemsList[itemIndex].description;
-    }
-    function nextItem() {
-      if (itemIndex >= (itemsList.length - 1)) {
-        itemIndex = 0;
-      } else {
-        itemIndex++;
+                                  );
+      function raiseEffectFocus() {
+        var darkLayer = document.getElementById('darkLayer');
+        var displayerFrame = document.getElementById('displayerFrame');
+        var displayerFrameBG = document.getElementById('displayerFrameBackground');
+        darkLayer.style.display = "inline";
+        displayerFrame.style.display = "inline";
+        displayerFrameBG.style.display = "inline";
       }
-      putItem();
-    }
-    function previousItem() {
-      if (itemIndex <= 0) {
-        itemIndex = itemsList.length - 1;
-      } else {
-        itemIndex--;
+      function removeEffectFocus() {
+        var darkLayer = document.getElementById('darkLayer');
+        var displayerFrame = document.getElementById('displayerFrame');
+        var displayerFrameBG = document.getElementById('displayerFrameBackground');
+        darkLayer.style.display = "none";
+        displayerFrame.style.display = "none";
+        displayerFrameBG.style.display = "none";
       }
-      putItem();
-    }
-  </script>
+      function initEffectFocus( item_id ) {
+        itemIndex = item_id;
+        putItem();
+        raiseEffectFocus();
+      }
+      function putItem() {
+        var title_in_frame = document.getElementById('title_in_frame');
+        var time_in_frame = document.getElementById('time_in_frame');
+        var cathegory_in_frame = document.getElementById('cathegory_in_frame');
+        var description_in_frame = document.getElementById('description_in_frame');
+        title_in_frame.innerHTML = itemsList[itemIndex].title;
+        time_in_frame.innerHTML = itemsList[itemIndex].time;
+        cathegory_in_frame.innerHTML = itemsList[itemIndex].cathegory;
+        description_in_frame.innerHTML = itemsList[itemIndex].description;
+      }
+      function nextItem() {
+        if (itemIndex >= (itemsList.length - 1)) {
+          itemIndex = 0;
+        } else {
+          itemIndex++;
+        }
+        putItem();
+      }
+      function previousItem() {
+        if (itemIndex <= 0) {
+          itemIndex = itemsList.length - 1;
+        } else {
+          itemIndex--;
+        }
+        putItem();
+      }
+    </script>
 
 <?php
   }

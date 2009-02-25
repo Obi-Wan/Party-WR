@@ -34,12 +34,11 @@ abstract class NonLayeredContents extends Contents {
                          str_replace("normal","hover",$imageSrc),"img{$count}");
         }
         $this->bodyCooked = str_replace("[img id=$count]",
-                    "<img id=\"img{$count}\" alt=\"img{$count}\" src=\"".
-                    ( ($isInTemplate) ? $this->template : "").$imageSrc .
-                    "\" style=\"".$this->images[$count]->style.'" '.
-                    ( ($needsHover) ? "onmouseover=\"mouseOver('img{$count}')\"".
-                    " onmouseout=\"mouseOut('img{$count}')\"" : "")." />",
-                    $this->bodyCooked);
+              "<img id=\"img{$count}\" alt=\"img{$count}\" src=\"$imageSrc".
+              "\" style=\"".$this->images[$count]->style.'" '.
+              ( ($needsHover) ? "onmouseover=\"mouseOver('img{$count}')\"".
+              " onmouseout=\"mouseOut('img{$count}')\"" : "")." />",
+              $this->bodyCooked);
       }
     }
   }

@@ -13,10 +13,10 @@ class Gallery extends LayeredContents {
   protected $listOfPhotos;
   protected $photosPath;
   
-  function __construct( StdUsefulData $data , $anno) {
-    $this->photosPath = "gallery/$anno";
+  function __construct( StdUsefulData $data , $subGallery) {
+    $this->photosPath = "gallery/{$subGallery}";
     $this->template = $data->templateDir;
-    $this->listOfPhotos = $data->ioResource->getPhotosOfGallery($anno);
+    $this->listOfPhotos = $data->ioResource->getPhotosOfGallery($subGallery);
     $this->theHover = $data->hoverHandler;
     
     $this->initFocusEffect();
@@ -27,61 +27,63 @@ class Gallery extends LayeredContents {
   }
   
   public function getLayerFunctions() {
-?>
-  <script type="text/javascript">
-    var photoIndex = 0;
-    var photosList = new Array (
-<?php
-    foreach ($this->listOfPhotos as $thisPhoto) {
-      print "                            '$this->photosPath/$thisPhoto',\n";
-    }  // ricorda che mentre php parte con indice 1, JS parte come il C da indice 0
-      print "                            '$this->templateDir/blank.png'\n";
-?>
-                                );
-    function raisePhotoFocus() {
-      var darkLayer = document.getElementById('darkLayer');
-      var displayerFrame = document.getElementById('displayerFrame');
-      var displayerFrameBG = document.getElementById('displayerFrameBackground');
-      darkLayer.style.display = "inline";
-      displayerFrame.style.display = "inline";
-      displayerFrameBG.style.display = "inline";
-    }
-    function removePhotoFocus() {
-      var darkLayer = document.getElementById('darkLayer');
-      var displayerFrame = document.getElementById('displayerFrame');
-      var displayerFrameBG = document.getElementById('displayerFrameBackground');
-      darkLayer.style.display = "none";
-      displayerFrame.style.display = "none";
-      displayerFrameBG.style.display = "none";
-    }
-    function initPhotoFocus( photo_id ) {
-      photoIndex = photo_id;
-      putPhoto();
-      raisePhotoFocus();
-    }
-    function putPhoto() {
-      var photo_element = document.getElementById('photoObject');
-      photo_element.src = photosList[photoIndex];
-    }
-    function nextPhoto() {
-      if (photoIndex >= (photosList.length - 1)) {
-        photoIndex = 0;
-      } else {
-        photoIndex++;
-      }
-      putPhoto();
-    }
-    function previousPhoto() {
-      if (photoIndex <= 0) {
-        photoIndex = photosList.length - 1;
-      } else {
-        photoIndex--;
-      }
-      putPhoto();
-    }
-  </script>
+    $output  = <<<EOT
+    <script type="text/javascript">
+      var photoIndex = 0;
+      var photosList = new Array (
 
-<?php
+EOT;
+    foreach ($this->listOfPhotos as $thisPhoto) {
+      $output .= "                            '$this->photosPath/$thisPhoto',\n";
+    }  // ricorda che mentre php parte con indice 1, JS parte come il C da indice 0
+      $output .= "                            '$this->templateDir/blank.png'\n";
+      $output .= <<<EOT
+                                  );
+      function raisePhotoFocus() {
+        var darkLayer = document.getElementById('darkLayer');
+        var displayerFrame = document.getElementById('displayerFrame');
+        var displayerFrameBG = document.getElementById('displayerFrameBackground');
+        darkLayer.style.display = "inline";
+        displayerFrame.style.display = "inline";
+        displayerFrameBG.style.display = "inline";
+      }
+      function removePhotoFocus() {
+        var darkLayer = document.getElementById('darkLayer');
+        var displayerFrame = document.getElementById('displayerFrame');
+        var displayerFrameBG = document.getElementById('displayerFrameBackground');
+        darkLayer.style.display = "none";
+        displayerFrame.style.display = "none";
+        displayerFrameBG.style.display = "none";
+      }
+      function initPhotoFocus( photo_id ) {
+        photoIndex = photo_id;
+        putPhoto();
+        raisePhotoFocus();
+      }
+      function putPhoto() {
+        var photo_element = document.getElementById('photoObject');
+        photo_element.src = photosList[photoIndex];
+      }
+      function nextPhoto() {
+        if (photoIndex >= (photosList.length - 1)) {
+          photoIndex = 0;
+        } else {
+          photoIndex++;
+        }
+        putPhoto();
+      }
+      function previousPhoto() {
+        if (photoIndex <= 0) {
+          photoIndex = photosList.length - 1;
+        } else {
+          photoIndex--;
+        }
+        putPhoto();
+      }
+    </script>
+
+EOT;
+    return $output;
   }
   
   protected function initFocusEffect() {

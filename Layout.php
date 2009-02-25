@@ -16,24 +16,23 @@ class Layout {
   private $foldingMenus;
   private $builtMenu;
 
-  private $layoutsDir;
-  private $chosenTemplate;
+  private $template;
 
   private $hoverHandler;
   private $contentsManager;
 
   public function __construct($layouts, DiskIO $ioResource,
           HoverEffect $hoverEffect) {
-    $this->layoutsDir = $layouts;
     $this->hoverHandler = $hoverEffect;
-    $this->chosenTemplate = $_REQUEST["template"];
+    $template = $_REQUEST["template"];
     /* We are now interested in finding which template was chosen */
     if ( /* If no template chosen, or it's not between the ones installed.. */
-        $this->chosenTemplate == "" ||
-        ( ! in_array( $this->chosenTemplate , $ioResource->getTemplates() ) )
+        $template == "" ||
+        ( ! in_array( $template , $ioResource->getTemplates() ) )
        )
     { /* We do fallback to default */
-      $this->chosenTemplate = "default";
+      $template = "default";
+      $this->template = "{$layouts}/{$template}";
     }
   }
 
@@ -41,9 +40,10 @@ class Layout {
 
   public function  generateFoldingJS() {
     $output = <<<EOT
-  <script type="text/javascript">
-    var expandable = new Array();
-    var folded = new Array();
+    <script type="text/javascript">
+      var expandable = new Array();
+      var folded = new Array();
+
 EOT;
     foreach ($this->foldingMenus as $singleItem) {
       $output .= "      var ".$singleItem["name"]." = new Array();\n";
@@ -58,22 +58,23 @@ EOT;
     }
     $output .= <<<EOT
 
-    function fold_unfold_expandable( branch, property ) {
-        for (i = 0; i < expandable[branch].length; i++) {
-            document.getElementById(expandable[branch][i]).style.display= property;
-        }
-    }
-
-    function fold_unfold( idOgg ) {
-      if (folded[idOgg]) {
-        fold_unfold_expandable(idOgg,"inline");
-        folded[idOgg] = false;
-      } else {
-        fold_unfold_expandable(idOgg,"none");
-        folded[idOgg] = true;
+      function fold_unfold_expandable( branch, property ) {
+          for (i = 0; i < expandable[branch].length; i++) {
+              document.getElementById(expandable[branch][i]).style.display= property;
+          }
       }
-    }
-  </script>
+
+      function fold_unfold( idOgg ) {
+        if (folded[idOgg]) {
+          fold_unfold_expandable(idOgg,"inline");
+          folded[idOgg] = false;
+        } else {
+          fold_unfold_expandable(idOgg,"none");
+          folded[idOgg] = true;
+        }
+      }
+    </script>
+
 EOT;
     return $output;
   }
@@ -115,8 +116,8 @@ EOT;
 
   private function generateButtMenu($buttonData) {
     $name = $buttonData["name"];
-    $imageNormal = "{$this->layoutsDir}/{$this->chosenTemplate}/button_{$name}_normal.png";
-    $imageHovered = "{$this->layoutsDir}/{$this->chosenTemplate}/button_{$name}_hover.png";
+    $imageNormal = "{$this->template}/button_{$name}_normal.png";
+    $imageHovered = "{$this->template}/button_{$name}_hover.png";
     $this->hoverHandler->
         addHoveredImage($imageNormal, $imageHovered, $name);
 
@@ -128,8 +129,8 @@ EOT;
 
   private function generateButtExpandable($buttonData) {
     $name = $buttonData["name"];
-    $imageNormal = "{$this->layoutsDir}/{$this->chosenTemplate}/button_{$name}_normal.png";
-    $imageHovered = "{$this->layoutsDir}/{$this->chosenTemplate}/button_{$name}_hover.png";
+    $imageNormal = "{$this->template}/button_{$name}_normal.png";
+    $imageHovered = "{$this->template}/button_{$name}_hover.png";
     $this->hoverHandler->
         addHoveredImage($imageNormal, $imageHovered, $name);
 
@@ -144,8 +145,8 @@ EOT;
     $root = $buttonData["root"];
     $leaf = $buttonData["leaf"];
     $name = "{$root}_{$leaf}";
-    $imageNormal = "{$this->layoutsDir}/{$this->chosenTemplate}/button_{$name}_normal.png";
-    $imageHovered = "{$this->layoutsDir}/{$this->chosenTemplate}/button_{$name}_hover.png";
+    $imageNormal = "{$this->template}/button_{$name}_normal.png";
+    $imageHovered = "{$this->template}/button_{$name}_hover.png";
     $this->hoverHandler->
         addHoveredImage($imageNormal, $imageHovered, $name);
 
@@ -157,7 +158,7 @@ EOT;
   }
 
   public function getChosenTemplate() {
-    return "$this->layoutsDir/$this->chosenTemplate";
+    return $this->template;
   }
 
   function setContentsManager($cntMgr) {
@@ -168,13 +169,13 @@ EOT;
     $output  = "  <head>\n";
     $output .= "    <title>{$title}</title>\n";
     $output .= "    <link rel=\"stylesheet\" type=\"text/css\" ".
-               "href=\"{$this->layoutsDir}/{$this->chosenTemplate}/main.css\" />\n";
+               "href=\"{$this->template}/main.css\" />\n";
     $output .= "    <link rel=\"stylesheet\" type=\"text/css\" ".
-               "href=\"{$this->layoutsDir}/{$this->chosenTemplate}/menu.css\" />\n";
+               "href=\"{$this->template}/menu.css\" />\n";
     if (is_array($additionalCssFiles)) {
       foreach ($additionalCssFiles as $cssFile) {
         $output .= "    <link rel=\"stylesheet\" type=\"text/css\" ".
-                   "href=\"{$this->layoutsDir}/{$this->chosenTemplate}/{$cssFile}\" />\n";
+                   "href=\"{$this->template}/{$cssFile}\" />\n";
       }
     }
 
@@ -197,8 +198,7 @@ EOT;
 
   public function generateBody() {
     $domDocument = new DOMDocument();
-    $domDocument->load(
-        "{$this->layoutsDir}/{$this->chosenTemplate}/{$this->chosenTemplate}.xml");
+    $domDocument->load("{$this->template}/template.xml");
     $node = $domDocument->getElementsByTagName("structure")->item(0);
     $bodyContent = $node->textContent;
 
@@ -208,8 +208,7 @@ EOT;
             $this->contentsManager->getLayers() :
             "",
         $bodyContent );
-    $bodyContent = str_replace("[TEMPLATE]",
-        "{$this->layoutsDir}/{$this->chosenTemplate}", $bodyContent );
+    $bodyContent = str_replace("[TEMPLATE]","{$this->template}", $bodyContent );
     $bodyContent = str_replace("[CONTENTS]",
         $this->contentsManager->getContents(), $bodyContent );
 
