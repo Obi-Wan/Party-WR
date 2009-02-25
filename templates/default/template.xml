@@ -36,5 +36,39 @@
 ]]>
     </structure>
     <menu>
+      <initCode>
+<![CDATA[
+        <form method="post" action="index.php" class="menu"><div class="menu">
+]]>
+      </initCode>
+      <closeCode>
+<![CDATA[
+        </div></form>
+]]>
+      </closeCode>
+      <menuButton>
+        <code>
+<![CDATA[
+          <input id="[NAME]" name="[NAME]" type="image" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />
+]]>
+        </code>
+        <type>input</type>
+      </menuButton>
+      <submenuButton>
+        <code>
+<![CDATA[
+            <input id="[NAME]" name="[LEAF]" value="[LEAF]" type="image" src="[IMAGE-NORMAL]" class="button_submenu" alt="[LEAF]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />
+]]>
+        </code>
+        <type>input</type>
+      </submenuButton>
+      <expandableButton>
+        <code>
+<![CDATA[
+          <img id="[NAME]" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" onclick="fold_unfold('[NAME]')" />
+]]>
+        </code>
+        <type>img</type>
+      </expandableButton>
     </menu>
 </root>

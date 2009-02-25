@@ -27,7 +27,6 @@ class PartyWR {
   private $template;
   private $contentsManager;
   private $theMenu;
-  private $builtMenu;
   private $title;
   private $siteStructure;
   private $features;
@@ -61,7 +60,7 @@ class PartyWR {
     /* Menu instantiated and created (not shown) */
     $this->theMenu = new Menu($this->data);
     $this->theMenu->setSiteStructure($this->siteStructure);
-    $this->builtMenu = $this->layoutMananger->generateMenu($this->theMenu->getMenu());
+    $this->layoutMananger->generateMenu($this->theMenu->getMenu());
 
     // include_once 'Banner.php';
   }

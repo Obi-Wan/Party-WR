@@ -82,19 +82,30 @@ EOT;
   /* Menu Functions */
 
   public function generateMenu($menuStructure) {
-    $output = '        <form method="post" action="index.php" '.
-              'class="menu"><div class="menu">' . "\n";
+    $domDocument = new DOMDocument();
+    $domDocument->load("{$this->template}/template.xml");
+    $domMenu = $domDocument->getElementsByTagName("menu")->item(0);
+
+    $menuData = $this->decodeDOMmenu($domMenu->childNodes);
+    unset ($domDocument);
+    unset ($domMenu);
+
+    $output  = $menuData["initCode"];
+    
     foreach ($menuStructure as $menuEntry) {
       switch ($menuEntry["button_type"]) {
         case "button_menu": {
-          $output .= $this->generateButtMenu($menuEntry);
+          $output .= $this->generateButtMenu($menuEntry,
+                                        $menuData["menuButton"]["code"]);
           break;
         }
         case "button_expandable": {
-          $output .= $this->generateButtExpandable($menuEntry);
+          $output .= $this->generateButtExpandable($menuEntry,
+                                        $menuData["expandableButton"]["code"]);
           $newFoldingRoot["name"] = $menuEntry["name"];
           foreach ($menuEntry["subitems"] as $item) {
-            $output .= $this->generateButtSubmenu($item);
+            $output .= $this->generateButtSubmenu($item,
+                                        $menuData["submenuButton"]["code"]);
             $newFoldingRoot["leaves"][] = "{$item["root"]}_{$item["leaf"]}";
           }
           $this->foldingMenus[] = $newFoldingRoot;
@@ -109,39 +120,38 @@ EOT;
     };
 
 //    $output .= Banner::placeMenuBanner();
-    $output .= "        </div></form>\n";
+    $output .= $menuData["closeCode"];
+    
     $this->builtMenu = $output; /* This will be in future the only admitted */
-    return $output;
   }
 
-  private function generateButtMenu($buttonData) {
+  private function generateButtMenu($buttonData, $format) {
     $name = $buttonData["name"];
     $imageNormal = "{$this->template}/button_{$name}_normal.png";
     $imageHovered = "{$this->template}/button_{$name}_hover.png";
     $this->hoverHandler->
         addHoveredImage($imageNormal, $imageHovered, $name);
 
-    return "          <input id=\"$name\" name=\"$name\" type=\"image\" ".
-           "src=\"{$imageNormal}\" class=\"button_menu\"".
-           " alt=\"$name\" onmouseover=\"mouseOver('$name')\" ".
-           "onmouseout=\"mouseOut('$name')\" />\n";
+    $format = str_replace("[NAME]",$name, $format );
+    $format = str_replace("[IMAGE-NORMAL]",$imageNormal, $format );
+
+    return $format;
   }
 
-  private function generateButtExpandable($buttonData) {
+  private function generateButtExpandable($buttonData, $format) {
     $name = $buttonData["name"];
     $imageNormal = "{$this->template}/button_{$name}_normal.png";
     $imageHovered = "{$this->template}/button_{$name}_hover.png";
     $this->hoverHandler->
         addHoveredImage($imageNormal, $imageHovered, $name);
+    
+    $format = str_replace("[NAME]",$name, $format );
+    $format = str_replace("[IMAGE-NORMAL]",$imageNormal, $format );
 
-    return "          <img id=\"$name\" src=\"{$imageNormal}\" ".
-           "class=\"button_menu\" alt=\"$name\" ".
-           "onmouseover=\"mouseOver('$name')\" ".
-           "onmouseout=\"mouseOut('$name')\" ".
-           "onclick=\"fold_unfold('$name')\"/>\n";
+    return $format;
   }
 
-  private function generateButtSubmenu($buttonData) {
+  private function generateButtSubmenu($buttonData, $format) {
     $root = $buttonData["root"];
     $leaf = $buttonData["leaf"];
     $name = "{$root}_{$leaf}";
@@ -150,11 +160,36 @@ EOT;
     $this->hoverHandler->
         addHoveredImage($imageNormal, $imageHovered, $name);
 
-    return '            <input id="'.$name.'" name="'.$leaf.'" value="'.
-           $leaf.'" type="image" src="'.$imageNormal.
-           '" class="button_submenu" alt="'.$leaf.
-           '" onmouseover="mouseOver(\''.$name.'\')" '.
-           'onmouseout="mouseOut(\''.$name."')\" />\n";
+    $format = str_replace("[NAME]",$name, $format );
+    $format = str_replace("[LEAF]",$leaf, $format );
+    $format = str_replace("[IMAGE-NORMAL]",$imageNormal, $format );
+
+    return $format;
+  }
+
+  private function decodeDOMmenu($menuNodes) {
+    $output = array();
+    foreach ($menuNodes as $node) {
+      switch ($node->nodeName) {
+        case "initCode":
+        case "closeCode":
+          $output["{$node->nodeName}"] = $node->textContent;
+          break;
+        case "menuButton":
+        case "submenuButton":
+        case "expandableButton":
+          foreach ($node->childNodes as $child) {
+            switch ($child->nodeName) {
+              case "code":
+              case "type":
+                $output["{$node->nodeName}"]["{$child->nodeName}"] =
+                    $child->textContent;
+            }
+          }
+          break;
+      }
+    }
+    return $output;
   }
 
   public function getChosenTemplate() {
