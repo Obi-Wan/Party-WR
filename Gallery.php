@@ -23,7 +23,7 @@ class Gallery extends LayeredContents {
   }
   
   public function getCss() {
-    print '    <link rel="stylesheet" type="text/css" href="' . $this->template . '/gallery.css" />' . "\n";
+    return "gallery.css";
   }
   
   public function getLayerFunctions() {

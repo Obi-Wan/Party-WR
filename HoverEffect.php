@@ -15,33 +15,23 @@ class HoverEffect {
   }
   
   public function initHoveredCache() {
-    print '  <script type="text/javascript">'."\n";
-    print "    var hoveredImages = new Array();\n";
+    $output  = '  <script type="text/javascript">'."\n";
+    $output .= "    var hoveredImages = new Array();\n";
     foreach ($this->hoveredImages as $id => $image) {
-      print "    hoveredImages[\"$id\"] = new Image();\n";
-      print "    hoveredImages[\"$id\"].src = \"$image\";\n";
+      $output .= "    hoveredImages[\"$id\"] = new Image();\n";
+      $output .= "    hoveredImages[\"$id\"].src = \"$image\";\n";
     }
-    print "    var normalImages = new Array();\n";
+    $output .= "    var normalImages = new Array();\n";
     foreach ($this->normalImages as $id => $image) {
-      print "    normalImages[\"$id\"] = new Image();\n";
-      print "    normalImages[\"$id\"].src = \"$image\";\n";
+      $output .= "    normalImages[\"$id\"] = new Image();\n";
+      $output .= "    normalImages[\"$id\"].src = \"$image\";\n";
     }
-    print "  </script>\n";
+    $output .= "  </script>\n";
+    return $output;
   }
   
   public function printHoverFunctions() {
-?>
-  <script type="text/javascript">
-    function mouseOver( idOgg ) {
-      var elem = document.getElementById( idOgg );
-      elem.src = hoveredImages[idOgg].src;
-    }
-    function mouseOut( idOgg ) {
-      var elem = document.getElementById( idOgg );
-      elem.src = normalImages[idOgg].src;
-    }
-  </script>
-<?php
+    return '  <script type="text/javascript" src="hoverFunctions.js"></script>'."\n";
   }
 }
   // fine

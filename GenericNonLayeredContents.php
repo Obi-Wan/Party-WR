@@ -21,9 +21,6 @@ class GenericNonLayeredContents extends NonLayeredContents {
     }
     parent::bodyCook();
   }
-  
-  public function getCss() {
-  }
 }
 
 ?>

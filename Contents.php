@@ -17,11 +17,13 @@ abstract class Contents {
    */
   abstract public function getContents();
   
-  /** Abstract method that returns the CSS file
+  /** Method that returns the CSS file
    *
    * @return the entry in the html header that says where to get the CSS of this class
    */
-  abstract public function getCss();
+  public function getCss() {
+      return "";
+  }
   
   protected $theHover;
   protected $template;

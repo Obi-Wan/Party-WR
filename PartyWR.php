@@ -63,7 +63,7 @@ class PartyWR {
     $this->theMenu->setSiteStructure($this->siteStructure);
     $this->builtMenu = $this->layoutMananger->generateMenu($this->theMenu->getMenu());
 
-    include_once 'Banner.php';
+    // include_once 'Banner.php';
   }
 
   private function loadConfig() {
@@ -120,30 +120,16 @@ class PartyWR {
   }
 
   public function printHead() {
-    print "  <head>\n";
-    print "    <title>{$this->title}</title>\n";
-    print "    <link rel=\"stylesheet\" type=\"text/css\" href=\"{$this->template}/main.css\" />\n";
-    print "    <link rel=\"stylesheet\" type=\"text/css\" href=\"{$this->template}/menu.css\" />\n";
-    $this->contentsManager->getCss();
-
-    $this->hoverHandler->initHoveredCache();
-    $this->hoverHandler->printHoverFunctions();
-
-    $this->layoutMananger->generateFoldingJS();
-
-    if ($this->contentsManager->hasLayers()) {
-      $this->contentsManager->getLayerFunctions();
+    $additionalCssFiles = array();
+    $cssFile = $this->contentsManager->getCss();
+    if ($cssFile != "") {
+      $additionalCssFiles[] = $cssFile;
     }
-
-    //Banner::initMenuBanner();
-    //Banner::printSmallBanner();
-    //Banner::initLowerBanner();
-    print "    <meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" />\n";
-    print "  </head>\n";
+    $this->layoutMananger->generateHead($this->title, $additionalCssFiles);
   }
   
   public function printBody() {
-      $this->layoutMananger->generateBody();
+    $this->layoutMananger->generateBody();
   }
 }
 ?>

@@ -20,7 +20,7 @@ class News extends LayeredContents {
   }
   
   public function getCss() {
-    print '    <link rel="stylesheet" type="text/css" href="' . $this->template . '/news.css" />' . "\n";
+    return "news.css";
   }
   
   public function getLayerFunctions() {

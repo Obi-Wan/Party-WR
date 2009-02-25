@@ -34,9 +34,6 @@ class Home extends NonLayeredContents {
     return $output;
   }
   
-  public function getCss() {
-  }
-  
 }
 
 ?>
