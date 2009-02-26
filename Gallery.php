@@ -57,8 +57,33 @@ EOT;
       }
       function initPhotoFocus( photo_id ) {
         photoIndex = photo_id;
-        putPhoto();
+        putPhotoAnim();
         raisePhotoFocus();
+      }
+      function changePhotoAnim() {
+        var i = 0;
+        for (i = 0; i< 12; i++) {
+          var time = i * 40;
+          setTimeout("document.getElementById(\'photoObject\').style.opacity = " +
+                      ((11-i)/12) + "; ",time);
+        }
+        var time = 11 * 40; //anticipato per eventuali lag
+        setTimeout("document.getElementById(\'photoObject\').src = photosList[photoIndex];",
+                    time);
+        for (i = 14; i< 26; i++) {
+          var time = i * 40;
+          setTimeout("document.getElementById(\'photoObject\').style.opacity = " +
+                      ((i - 13)/12) + ";",time);
+        }
+      }
+      function putPhotoAnim() {
+        document.getElementById('photoObject').style.opacity = 0;
+        document.getElementById('photoObject').src = photosList[photoIndex];
+        for (i = 0; i< 13; i++) {
+          var time = i * 40;
+          setTimeout("document.getElementById(\'photoObject\').style.opacity = " +
+                      (i/12) + ";",time);
+        }
       }
       function putPhoto() {
         var photo_element = document.getElementById('photoObject');
@@ -70,7 +95,7 @@ EOT;
         } else {
           photoIndex++;
         }
-        putPhoto();
+        changePhotoAnim();
       }
       function previousPhoto() {
         if (photoIndex <= 0) {
@@ -78,7 +103,7 @@ EOT;
         } else {
           photoIndex--;
         }
-        putPhoto();
+        changePhotoAnim();
       }
     </script>
 

@@ -57,24 +57,34 @@ EOT;
       $output .= "      folded['{$singleItem["name"]}'] = true;\n";
     }
     $output .= <<<EOT
-
       function fold_unfold_expandable( branch, property ) {
-          for (i = 0; i < expandable[branch].length; i++) {
-              document.getElementById(expandable[branch][i]).style.display= property;
-          }
+        for (i = 0; i < expandable[branch].length; i++) {
+          document.getElementById(expandable[branch][i]).style.display= property;
+        }
+      }
+
+      function fold_unfold_expandable_animation( branch, property ) {
+        for (i = 0; i < expandable[branch].length; i++) {
+          var time = i * 100;
+          setTimeout("applyPropertyToObject(\'" + branch + "\',\'" + i + "\',\'"
+                      + property + "\')",time);
+        }
+      }
+
+      function applyPropertyToObject( branch, i , property ) {
+        document.getElementById(expandable[branch][i]).style.display= property;
       }
 
       function fold_unfold( idOgg ) {
         if (folded[idOgg]) {
-          fold_unfold_expandable(idOgg,"inline");
+          fold_unfold_expandable_animation(idOgg,"inline");
           folded[idOgg] = false;
         } else {
-          fold_unfold_expandable(idOgg,"none");
+          fold_unfold_expandable_animation(idOgg,"none");
           folded[idOgg] = true;
         }
       }
     </script>
-
 EOT;
     return $output;
   }
