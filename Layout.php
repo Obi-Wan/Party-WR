@@ -31,7 +31,8 @@ class Layout {
         ( ! in_array( $template , $ioResource->getTemplates() ) )
        )
     { /* We do fallback to default */
-      $template = "default";
+      //$template = "default";
+      $template = "summer2009";
       $this->template = "{$layouts}/{$template}";
     }
   }
@@ -85,6 +86,7 @@ EOT;
         }
       }
     </script>
+
 EOT;
     return $output;
   }

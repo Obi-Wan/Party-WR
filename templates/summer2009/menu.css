@@ -1,0 +1,45 @@
+
+form.container_menu {
+    width : 23%;
+    float : left;
+    max-width : 25%;
+  }
+
+div.menu {
+    margin-bottom : 5px;
+    margin-top : 5px;
+    margin-left : 10%;
+    margin-right : 10%;
+    width : 80%;
+    max-width : 250px;
+    text-align : center;
+    float : right;
+  }
+
+
+.button_menu {
+    width : 151px;
+    height : 55px;
+    left: -15px;
+    position : relative;
+    margin : 3px;
+  }
+
+
+.button_menu:hover {
+    cursor : pointer;
+  }
+
+
+input.button_submenu {
+    display : none;
+    position :relative;
+    height : 50px;
+    left : 15px;
+    width : 137px;
+  }
+
+
+input.button_submenu:hover {
+    cursor : pointer;
+  }

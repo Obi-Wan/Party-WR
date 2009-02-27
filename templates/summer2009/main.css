@@ -1,0 +1,136 @@
+
+
+body {
+    color : black;
+    font-family : Verdana, Arial, Helvetica;
+    font-size : 1.0em;
+    opacity : .85;
+    text-align : center;
+    background-color: #E8F9FF; /*#00f1dd;*/
+    vertical-align: top;
+    background-image : url('sfondoTitolo4.png');
+    background-position : top center;
+    background-repeat : repeat-x;
+    z-index: 1;
+}
+
+
+div.mainBox {
+    width : 100%;
+    top : 0px;
+    left : 0px;
+}
+
+
+img.logo {
+    position : absolute;
+    height : 200px;
+    width : 200px;
+    left: 0px;
+    top: 0px;
+  }
+
+
+img.approved {
+    float : right;
+    width : 15%;
+    height:auto;
+    position : fixed;
+    right : 0px;
+    top : 250px;
+    z-index:5;
+  }
+
+
+div.banner {
+    height : 300px;
+    width : 100%;
+    top : 0px;
+    padding:0px;
+  }
+
+
+img.banner {
+    top : 30px;
+    left : -55px;
+    height : 148px;
+    width : 577px;
+    position: relative;
+  }
+
+
+div.blocco_centrale {
+    text-align : center;
+  }
+
+
+div.container_corpo {
+    width : 75%;
+    float : right;
+}
+
+div.mid_container_corpo {
+    opacity : 1;
+    width : 70%;
+    float : left;
+    margin : 5px;
+    background-color: #ffffff;
+}
+
+div.corpo {
+    padding : 20px;
+    font-size : 1.3em;
+    font-family:cursive;
+    text-align : center;
+    border-color: #00378d;
+    border-width: 1px;
+    border-style: solid;
+}
+
+b, h1, h2 {
+    color : #000048;
+}
+
+div.topper_corpo {
+  vertical-align : baseline;
+}
+
+img.corner-hl {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+img.corner-hr {
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+img.dark_layer {
+    display : none;
+    position : fixed;
+    height : 100%;
+    width : 100%;
+    z-index : 50;
+    left : 0px;
+    top : 0px;
+  }
+
+
+img.close_button:hover {
+    cursor : pointer;
+  }
+
+
+img.previous_button:hover {
+    cursor : pointer;
+  }
+
+
+img.next_button:hover {
+    cursor : pointer;
+  }
+

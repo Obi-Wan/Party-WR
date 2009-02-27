@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : default.xml
+    Created on : 25 febbraio 2009, 14.58
+    Author     : ben
+    Description:
+        Purpose of the document follows.
+-->
+
+<root>
+    <effects>
+        <hover>true</hover> <!-- boolean -->
+        <expand>true</expand> <!-- boolean -->
+    </effects>
+    <structure>
+<![CDATA[
+  <body>
+[LAYERS]
+    <div class="mainBox">
+      <img src="images/PartyHardApproved.png" class="approved" alt="" />
+[BANNER-TOP]
+      <div class="banner">
+        <img src="[TEMPLATE]/logo.png" class="logo" alt="Logo" />
+        <img src="[TEMPLATE]/titolo-summer.png" class="banner" alt="banner" />
+      </div>
+      <div class="blocco_centrale">
+[MENU]
+        <div class="container_corpo">
+          <div class="mid_container_corpo">
+            <div class="topper_corpo">
+              <img src="[TEMPLATE]/corner-hl.png" class="corner-hl" alt="" />
+              <img src="[TEMPLATE]/corner-hr.png" class="corner-hr" alt="" />
+            </div>
+            <div class="corpo">
+[CONTENTS]
+            </div>
+          </div>
+        </div>
+[BANNER-BOTTOM]
+      </div>
+    </div>
+  </body>
+]]>
+    </structure>
+    <menu>
+      <initCode>
+<![CDATA[
+        <form method="post" action="index.php" class="container_menu"><div class="menu">
+]]>
+      </initCode>
+      <closeCode>
+<![CDATA[
+        </div></form>
+]]>
+      </closeCode>
+      <menuButton>
+        <code>
+<![CDATA[
+          <input id="[NAME]" name="[NAME]" type="image" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />
+]]>
+        </code>
+        <type>input</type>
+      </menuButton>
+      <submenuButton>
+        <code>
+<![CDATA[
+            <input id="[NAME]" name="[LEAF]" value="[LEAF]" type="image" src="[IMAGE-NORMAL]" class="button_submenu" alt="[LEAF]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />
+]]>
+        </code>
+        <type>input</type>
+      </submenuButton>
+      <expandableButton>
+        <code>
+<![CDATA[
+          <img id="[NAME]" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" onclick="fold_unfold('[NAME]')" />
+]]>
+        </code>
+        <type>img</type>
+      </expandableButton>
+    </menu>
+</root>
