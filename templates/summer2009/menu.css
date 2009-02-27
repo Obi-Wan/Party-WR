@@ -18,8 +18,6 @@ div.menu {
 
 
 .button_menu {
-    width : 151px;
-    height : 55px;
     left: -15px;
     position : relative;
     margin : 3px;
@@ -34,9 +32,7 @@ div.menu {
 input.button_submenu {
     display : none;
     position :relative;
-    height : 50px;
     left : 15px;
-    width : 137px;
   }
 
 

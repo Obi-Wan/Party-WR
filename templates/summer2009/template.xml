@@ -23,6 +23,7 @@
       <div class="banner">
         <img src="[TEMPLATE]/logo.png" class="logo" alt="Logo" />
         <img src="[TEMPLATE]/titolo-summer.png" class="banner" alt="banner" />
+        <img src="[TEMPLATE]/titolo-chiara.png" class="sub_banner" alt="banner" />
       </div>
       <div class="blocco_centrale">
 [MENU]
