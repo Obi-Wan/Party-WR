@@ -118,6 +118,7 @@ img.corner-hr {
 }
 
 img.dark_layer {
+  opacity : 1;
     display : none;
     position : fixed;
     height : 100%;

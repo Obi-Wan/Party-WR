@@ -21,6 +21,8 @@ class Layout {
   private $hoverHandler;
   private $contentsManager;
 
+  private $domDocument;
+
   public function __construct($layouts, DiskIO $ioResource,
           HoverEffect $hoverEffect) {
     $this->hoverHandler = $hoverEffect;
@@ -34,6 +36,9 @@ class Layout {
       //$template = "default";
       $template = "summer2009";
       $this->template = "{$layouts}/{$template}";
+
+      $this->domDocument = new DOMDocument();
+      $this->domDocument->load("{$this->template}/template.xml");
     }
   }
 
@@ -94,12 +99,9 @@ EOT;
   /* Menu Functions */
 
   public function generateMenu($menuStructure) {
-    $domDocument = new DOMDocument();
-    $domDocument->load("{$this->template}/template.xml");
-    $domMenu = $domDocument->getElementsByTagName("menu")->item(0);
+    $domMenu = $this->domDocument->getElementsByTagName("menu")->item(0);
 
     $menuData = $this->decodeDOMmenu($domMenu->childNodes);
-    unset ($domDocument);
     unset ($domMenu);
 
     $output  = $menuData["initCode"];
@@ -244,18 +246,17 @@ EOT;
   }
 
   public function generateBody() {
-    $domDocument = new DOMDocument();
-    $domDocument->load("{$this->template}/template.xml");
-    $node = $domDocument->getElementsByTagName("structure")->item(0);
+    $node = $this->domDocument->getElementsByTagName("structure")->item(0);
     $bodyContent = $node->textContent;
 
+    $bodyContent = str_replace("[TEMPLATE]","{$this->template}", $bodyContent );
     $bodyContent = str_replace("[MENU]",$this->builtMenu, $bodyContent );
     $bodyContent = str_replace("[LAYERS]",
         $this->contentsManager->hasLayers() ?
-            $this->contentsManager->getLayers() :
+            //$this->contentsManager->getLayers() :
+            $this->generateLayers() :
             "",
         $bodyContent );
-    $bodyContent = str_replace("[TEMPLATE]","{$this->template}", $bodyContent );
     $bodyContent = str_replace("[CONTENTS]",
         $this->contentsManager->getContents(), $bodyContent );
 
@@ -263,6 +264,27 @@ EOT;
     $bodyContent = str_replace("[BANNER-BOTTOM]","", $bodyContent );
 
     print "$bodyContent";
+  }
+
+  public function generateLayers() {
+    $layerType = $this->contentsManager->getLayers();
+    $layersInfo = $this->domDocument->getElementsByTagName("{$layerType["type"]}")->item(0)->getElementsByTagName("code")->item(0);
+    $layersCode = $layersInfo->textContent;
+
+    // not used yet
+    $usedObjects = $this->domDocument->getElementsByTagName("{$layerType["type"]}-button");
+    
+    $layersCode = str_replace("[TEMPLATE]","{$this->template}", $layersCode );
+    foreach ($layerType["actions"] as $action) {
+      $tempUrl = "{$this->template}/button_{$action["name"]}_normal";
+      $tempMark = "[" . strtoupper("{$action["name"]}") . "-NORMAL]";
+      $layersCode = str_replace($tempMark,$tempUrl, $layersCode );
+
+      $tempMark = "[" . strtoupper("{$action["name"]}") . "-FUNCTION]";
+      $layersCode = str_replace($tempMark,$action["function"], $layersCode );
+    }
+    
+    return "$layersCode";
   }
 }
 ?>

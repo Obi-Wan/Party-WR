@@ -11,6 +11,12 @@ class News extends LayeredContents {
   
   protected $theNews;
   
+  protected $tableOfFunctions = array (
+                    "close" => "removeEffectFocus()",
+                    "next" => "nextItem()",
+                    "previous" => "previousItem()"
+  );
+  
   function __construct (StdUsefulData $data) {
     $this->theNews = $data->ioResource->getRawContents("news");
     $this->template = $data->templateDir;
@@ -98,7 +104,7 @@ class News extends LayeredContents {
 <?php
   }
   
-  protected function initFocusEffect() {
+  public function initFocusEffect() {
     $closeButtonNormal = "{$this->template}/button_close_normal.png";
     $closeButtonHover = "{$this->template}/button_close_hover.png";
     $previousButtonNormal = "{$this->template}/button_previous_normal.png";
@@ -112,28 +118,15 @@ class News extends LayeredContents {
   }
   
   public function getLayers() {
-    $closeButtonNormal = "{$this->template}/button_close_normal.png";
-    $previousButtonNormal = "{$this->template}/button_previous_normal.png";
-    $nextButtonNormal = "{$this->template}/button_next_normal.png";
-    
-    return '    <img id="darkLayer" class="dark_layer" src="' . $this->template . '/dark_layer.png" />' . "\n" .
-           '    <img id="displayerFrameBackground" class="displayer_frame_background" src="' . $this->template .
-           '/sfondo_news_frame.png" />' . "\n" .
-           '    <div id="displayerFrame" class="displayer_frame">' . "\n" .
-           '      <img id="close" class="close_button" src="'.$closeButtonNormal.'" onclick="removeEffectFocus()" '.
-           'onmouseover="mouseOver(\'close\')" onmouseout="mouseOut(\'close\')" />'."\n".
-           '      <div id="" class="item_frame"> ' . "\n" .
-           '        <p><b>Title:</b> <i id="title_in_frame"> </i></p>'. "\n" .
-           '        <p><b>Time:</b> <i id="time_in_frame"> </i></p>'. "\n" .
-           '        <p><b>Cathegory:</b> <i id="cathegory_in_frame"> </i></p>'. "\n" .
-           '        <p><b>Description:</b> <i id="description_in_frame"> </i></p>'. "\n" .
-           '      </div>' . "\n" .
-           '      <img id="previous" class="previous_button" src="'.$previousButtonNormal.
-           '" onclick="previousItem()" onmouseover="mouseOver(\'previous\')" onmouseout="mouseOut(\'previous\')" />'.
-           "\n" .
-           '      <img id="next" class="next_button" src="' . $nextButtonNormal . '" onclick="nextItem()" '.
-           'onmouseover="mouseOver(\'next\')" onmouseout="mouseOut(\'next\')" />' . "\n" .
-           "    </div>\n";
+    $output["type"] = "news";
+
+    foreach ($this->tableOfFunctions as $name => $function) {
+      $tmp["name"] = $name;
+      $tmp["function"] = $function;
+      $output["actions"][] = $tmp;
+    }
+
+    return $output;
   }
   
   public function getContents() {

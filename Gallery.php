@@ -12,13 +12,19 @@ class Gallery extends LayeredContents {
   
   protected $listOfPhotos;
   protected $photosPath;
+
+  protected $tableOfFunctions = array (
+                    "close" => "removePhotoFocus()",
+                    "next" => "nextPhoto()",
+                    "previous" => "previousPhoto()"
+  );
   
   function __construct( StdUsefulData $data , $subGallery) {
     $this->photosPath = "gallery/{$subGallery}";
     $this->template = $data->templateDir;
     $this->listOfPhotos = $data->ioResource->getPhotosOfGallery($subGallery);
     $this->theHover = $data->hoverHandler;
-    
+
     $this->initFocusEffect();
   }
   
@@ -111,7 +117,7 @@ EOT;
     return $output;
   }
   
-  protected function initFocusEffect() {
+  public function initFocusEffect() {
     $closeButtonNormal = "{$this->template}/button_close_normal.png";
     $closeButtonHover = "{$this->template}/button_close_hover.png";
     $previousButtonNormal = "{$this->template}/button_previous_normal.png";
@@ -124,21 +130,15 @@ EOT;
   }
   
   public function getLayers( ) {
-    $closeButtonNormal = "{$this->template}/button_close_normal.png";
-    $previousButtonNormal = "{$this->template}/button_previous_normal.png";
-    $nextButtonNormal = "{$this->template}/button_next_normal.png";
-    return '    <img id="darkLayer" class="dark_layer" src="' . $this->template . '/dark_layer.png" />' . "\n" .
-           '    <img id="displayerFrameBackground" class="displayer_frame_background" src="' . $this->template .
-           '/sfondo_photo_frame.png" />' . "\n" .
-           '    <div id="displayerFrame" class="displayer_frame">' . "\n" .
-           '      <img id="close" class="close_button" src="' . $closeButtonNormal . '" ' .
-           'onclick="removePhotoFocus()" onmouseover="mouseOver(\'close\')" onmouseout="mouseOut(\'close\')" />'."\n".
-           '        <img id="photoObject" class="photo_object" src="' . $this->template . '/blank.png" />' . "\n" .
-           '      <img id="previous" class="previous_button" src="' . $previousButtonNormal .
-           '" onclick="previousPhoto()" onmouseover="mouseOver(\'previous\')" ' .
-           'onmouseout="mouseOut(\'previous\')" />' . "\n" .
-           '      <img id="next" class="next_button" src="' . $nextButtonNormal . '" onclick="nextPhoto()" '.'onmouseover="mouseOver(\'next\')" onmouseout="mouseOut(\'next\')" />' . "\n" .
-           "    </div>\n";
+    $output["type"] = "gallery";
+
+    foreach ($this->tableOfFunctions as $name => $function) {
+      $tmp["name"] = $name;
+      $tmp["function"] = $function;
+      $output["actions"][] = $tmp;
+    }
+
+    return $output;
   }
 
   public function getContents() {
