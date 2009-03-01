@@ -42,7 +42,8 @@ function parseMessages(responseXML) {
     photosList = new Array(responseXML.getElementsByTagName("photos")[0].nodeValue);
     var photos = responseXML.getElementsByTagName("photo");
     for (count = 0; count < photos.length; count++) {
-      photosList[count] = photos[count].childNodes[0].nodeValue;
+      photosList[count] = new Image();
+      photosList[count].src = photos[count].childNodes[0].nodeValue;
     }
     return true;
   }
@@ -90,7 +91,7 @@ function changePhotoAnim() {
                 ((11-i)/12) + "; ",time);
   }
   time = 11 * 40; //anticipato per eventuali lag
-  setTimeout("document.getElementById(\'photoObject\').src = photosList[photoIndex];",
+  setTimeout("document.getElementById(\'photoObject\').src = photosList[photoIndex].src;",
               time);
   for (i = 14; i< 26; i++) {
     time = i * 40;
@@ -101,7 +102,7 @@ function changePhotoAnim() {
 
 function putPhotoAnim() {
   document.getElementById('photoObject').style.opacity = 0;
-  document.getElementById('photoObject').src = photosList[photoIndex];
+  document.getElementById('photoObject').src = photosList[photoIndex].src;
   for (i = 0; i< 13; i++) {
     var time = i * 40;
     setTimeout("document.getElementById(\'photoObject\').style.opacity = " +
@@ -111,7 +112,7 @@ function putPhotoAnim() {
 
 function putPhoto() {
   var photo_element = document.getElementById('photoObject');
-  photo_element.src = photosList[photoIndex];
+  photo_element.src = photosList[photoIndex].src;
 }
 
 function nextPhoto() {
