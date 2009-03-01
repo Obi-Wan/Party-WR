@@ -9,14 +9,16 @@ class DiskIO {
   protected $dataContents;
   protected $galleries;
   protected $layouts;
+  protected $relativePath;
   
   /** Constructor that scans for needed dirs and files.
    */
-  function __construct () {
+  function __construct ($relativePath = ".") {
+    $this->relativePath = $relativePath;
     /* check the sane dir structure */
 
     /* first of all find all the galleries */
-    $dirRef = new DirectoryIterator("gallery");
+    $dirRef = new DirectoryIterator("{$relativePath}/gallery");
     if ($dirRef) {
       foreach ($dirRef as $iterDir) {
         if ($iterDir->isDir() && (! $iterDir->isDot())){
@@ -32,7 +34,7 @@ class DiskIO {
     sort($this->galleries);
     
     /* verify templates are in place */
-    $dirRef = new DirectoryIterator("templates");
+    $dirRef = new DirectoryIterator("{$relativePath}/templates");
     if ($dirRef) {
       foreach ($dirRef as $iterDir) {
         if ($iterDir->isDir() && (! $iterDir->isDot())){
@@ -47,7 +49,7 @@ class DiskIO {
     unset ($dirRef);
     
     /* verify contents are in place */
-    $dirRef = new DirectoryIterator("data");
+    $dirRef = new DirectoryIterator("{$relativePath}/data");
     if ($dirRef) {
       foreach ($dirRef as $iterDir) {
         if ($iterDir->isFile() ){
@@ -79,18 +81,42 @@ class DiskIO {
   function getGalleries () {
     return $this->galleries;
   }
-  
+
   /** Retrieves the list of photos for the selected gallery
-   * 
+   *
    * @param $gallery_year Selected year
+   * @param $localPath Selected path
    * @return List of photos
    */
   function getPhotosOfGallery ( $gallery_year ) {
     /* We open the dir and scan the files. */
-    $dirRef = new DirectoryIterator("gallery/{$gallery_year}");
+    $dirRef = new DirectoryIterator("{$this->relativePath}/gallery/{$gallery_year}");
     foreach ($dirRef as $iterDir) {
       if ($iterDir->isFile() ){
         $listOfPhotos[] = $iterDir->getFilename();
+      }
+    }
+    unset ($dirRef);
+
+    return $listOfPhotos;
+  }
+
+  /** Retrieves the list of photos for the selected gallery with path
+   *
+   * @param $gallery_year Selected year
+   * @param $localPath Selected path
+   * @param $includeLocalPath
+   * @return List of photos
+   */
+  function getPhotosOfGalleryWithPath ( $gallery_year, $localPath = "." ,
+                                $includeLocalPath = true )
+  {
+    /* We open the dir and scan the files. */
+    $dirRef = new DirectoryIterator("{$localPath}/gallery/{$gallery_year}");
+    foreach ($dirRef as $iterDir) {
+      if ($iterDir->isFile() ){
+        $listOfPhotos[] = ($includeLocalPath ? "{$localPath}/" : "") .
+                  "/gallery/{$iterDir->getFilename()}";
       }
     }
     unset ($dirRef);

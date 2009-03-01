@@ -15,7 +15,7 @@
   </effects>
   <structure>
 <![CDATA[
-<body>
+<body [REQUESTING-CODE]>
 [LAYERS]
   <div class="mainBox">
     <img src="images/PartyHardApproved.png" class="approved" alt="" />

@@ -50,6 +50,14 @@ abstract class Contents {
     $temp = str_replace("[u]","<span style=\"text-decoration: underline;\">", $temp );
     return str_replace("[/u]","</span>", $temp );
   }
+
+  /** Returns if we need onload Code.
+   *
+   * @return boolean
+   */
+  public function needsOnload() {
+    return false;
+  }
 }
 
 ?>

@@ -274,6 +274,12 @@ EOT;
     $bodyContent = str_replace("[BANNER-TOP]", "", $bodyContent );
     $bodyContent = str_replace("[BANNER-BOTTOM]", "", $bodyContent );
 
+    $bodyContent = str_replace("[REQUESTING-CODE]",
+        $this->contentsManager->needsOnload() ?
+          $this->contentsManager->getOnloadCode() :
+          "",
+        $bodyContent );
+
     print "$bodyContent";
   }
 
