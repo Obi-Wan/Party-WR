@@ -39,27 +39,27 @@ img.displayer_frame_background {
 div.buttons_container {
     height : 10%;
     display : none;
-    left : 5%;
+    left : 15%;
     position : fixed;
     text-align : center;
     bottom : 0%;
     vertical-align : middle;
-    width : 90%;
+    width : 70%;
     z-index : 51;
   }
 
 img.buttons_bar {
-    height : 10%;
+    height : 16%;
     display : none;
-    left : 5%;
     position : fixed;
     bottom : -5%;
-    width : 90%;
+    left : 15%;
+    width : 70%;
     z-index : 50;
   }
 
 img.photo_object {
-    height : 70%;
+    height : 80%;
     width : auto;
     position : relative;
     top: 15%;
@@ -68,7 +68,7 @@ img.photo_object {
 
 
 img.close_button {
-    height : 15%;
+    height : 10%;
     width : auto;
     position : absolute;
     top : 0px;
@@ -77,8 +77,8 @@ img.close_button {
 
 
 img.previous_button {
-/*    height : 15%;
-    width : auto;
+    height : 100%;
+/*    width : auto;
     position : absolute;
     bottom : 0px;
     left : 0px; */
@@ -87,8 +87,27 @@ img.previous_button {
 
 
 img.next_button {
-  /*  height : 15%;
-    width : auto;
+    height : 100%;
+  /*  width : auto;
+    position : absolute;
+    bottom : 0px;
+    right : 0px;*/
+  }
+
+
+img.first_button {
+    height : 90%;
+/*    width : auto;
+    position : absolute;
+    bottom : 0px;
+    left : 0px; */
+  }
+
+
+
+img.last_button {
+    height : 90%;
+  /*  width : auto;
     position : absolute;
     bottom : 0px;
     right : 0px;*/

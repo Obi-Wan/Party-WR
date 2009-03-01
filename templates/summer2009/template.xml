@@ -126,9 +126,9 @@
 ]]>
     </code>
     <objects>
-      <gallery-button>close</gallery-button>
-      <gallery-button>next</gallery-button>
-      <gallery-button>previous</gallery-button>
+      <news-button>close</news-button>
+      <news-button>next</news-button>
+      <news-button>previous</news-button>
     </objects>
   </news>
 </root>
