@@ -36,6 +36,27 @@ img.displayer_frame_background {
     z-index : 50;
   }
 
+div.buttons_container {
+    height : 10%;
+    display : none;
+    left : 5%;
+    position : fixed;
+    text-align : center;
+    bottom : 0%;
+    vertical-align : middle;
+    width : 90%;
+    z-index : 51;
+  }
+
+img.buttons_bar {
+    height : 10%;
+    display : none;
+    left : 5%;
+    position : fixed;
+    bottom : -5%;
+    width : 90%;
+    z-index : 50;
+  }
 
 img.photo_object {
     height : 70%;
@@ -56,20 +77,20 @@ img.close_button {
 
 
 img.previous_button {
-    height : 15%;
+/*    height : 15%;
     width : auto;
     position : absolute;
     bottom : 0px;
-    left : 0px;
+    left : 0px; */
   }
 
 
 
 img.next_button {
-    height : 15%;
+  /*  height : 15%;
     width : auto;
     position : absolute;
     bottom : 0px;
-    right : 0px;
+    right : 0px;*/
   }
 

@@ -16,16 +16,16 @@ class Gallery extends LayeredContents {
   protected $tableOfFunctions = array (
                     "close" => "removePhotoFocus()",
                     "next" => "nextPhoto()",
-                    "previous" => "previousPhoto()"
+                    "previous" => "previousPhoto()",
+                    "first" => "firstPhoto()",
+                    "last" => "lastPhoto()",
+                    "buttons_bar" => "hide_expose_bar()"
   );
   
   function __construct( StdUsefulData $data , $subGallery) {
     $this->photosPath = "gallery/{$subGallery}";
     $this->template = $data->templateDir;
     $this->listOfPhotos = $data->ioResource->getPhotosOfGallery($subGallery);
-    $this->theHover = $data->hoverHandler;
-
-    $this->initFocusEffect();
   }
   
   public function getCss() {
@@ -41,7 +41,7 @@ class Gallery extends LayeredContents {
 EOT;
     foreach ($this->listOfPhotos as $thisPhoto) {
       $output .= "                            '$this->photosPath/$thisPhoto',\n";
-    }  // ricorda che mentre php parte con indice 1, JS parte come il C da indice 0
+    }
       $output .= "                            '$this->templateDir/blank.png'\n";
       $output .= <<<EOT
                                   );
@@ -49,17 +49,25 @@ EOT;
         var darkLayer = document.getElementById('darkLayer');
         var displayerFrame = document.getElementById('displayerFrame');
         var displayerFrameBG = document.getElementById('displayerFrameBackground');
+        var buttonsContainer = document.getElementById('buttons_container');
+        var buttonsBar = document.getElementById('buttons_bar');
         darkLayer.style.display = "inline";
         displayerFrame.style.display = "inline";
         displayerFrameBG.style.display = "inline";
+        buttonsContainer.style.display = "inline";
+        buttonsBar.style.display = "inline";
       }
       function removePhotoFocus() {
         var darkLayer = document.getElementById('darkLayer');
         var displayerFrame = document.getElementById('displayerFrame');
         var displayerFrameBG = document.getElementById('displayerFrameBackground');
+        var buttonsContainer = document.getElementById('buttons_container');
+        var buttonsBar = document.getElementById('buttons_bar');
         darkLayer.style.display = "none";
         displayerFrame.style.display = "none";
         displayerFrameBG.style.display = "none";
+        buttonsContainer.style.display = "none";
+        buttonsBar.style.display = "none";
       }
       function initPhotoFocus( photo_id ) {
         photoIndex = photo_id;
@@ -111,32 +119,24 @@ EOT;
         }
         changePhotoAnim();
       }
+      function firstPhoto() {
+        photoIndex = 0;
+        changePhotoAnim();
+      }
+      function lastPhoto() {
+        photoIndex = photosList.length - 2;
+        changePhotoAnim();
+      }
     </script>
 
 EOT;
     return $output;
   }
   
-  public function initFocusEffect() {
-    $closeButtonNormal = "{$this->template}/button_close_normal.png";
-    $closeButtonHover = "{$this->template}/button_close_hover.png";
-    $previousButtonNormal = "{$this->template}/button_previous_normal.png";
-    $previousButtonHover = "{$this->template}/button_previous_hover.png";
-    $nextButtonNormal = "{$this->template}/button_next_normal.png";
-    $nextButtonHover = "{$this->template}/button_next_hover.png";
-    $this->theHover->addHoveredImage($closeButtonNormal,$closeButtonHover,"close");
-    $this->theHover->addHoveredImage($previousButtonNormal,$previousButtonHover,"previous");
-    $this->theHover->addHoveredImage($nextButtonNormal,$nextButtonHover,"next");
-  }
-  
   public function getLayers( ) {
     $output["type"] = "gallery";
 
-    foreach ($this->tableOfFunctions as $name => $function) {
-      $tmp["name"] = $name;
-      $tmp["function"] = $function;
-      $output["actions"][] = $tmp;
-    }
+    $output["functions"] = $this->tableOfFunctions;
 
     return $output;
   }

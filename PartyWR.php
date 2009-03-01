@@ -124,6 +124,7 @@ class PartyWR {
     if ($cssFile != "") {
       $additionalCssFiles[] = $cssFile;
     }
+    $this->layoutMananger->pre_generateHead();
     $this->layoutMananger->generateHead($this->title, $additionalCssFiles);
   }
   

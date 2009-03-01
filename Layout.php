@@ -14,13 +14,21 @@ include_once 'Banner.php';
  */
 class Layout {
   private $foldingMenus;
-  private $builtMenu;
 
+  // pre-built body contents
+  private $builtMenu;
+  private $builtLayers;
+
+  /** Template Directory */
   private $template;
 
+  /** Reference to the HoverEffect handler */
   private $hoverHandler;
+
+  /** Reference to the Contents manager */
   private $contentsManager;
 
+  /** DOMDocument Object which holds template data */
   private $domDocument;
 
   public function __construct($layouts, DiskIO $ioResource,
@@ -213,6 +221,14 @@ EOT;
   function setContentsManager($cntMgr) {
     $this->contentsManager = $cntMgr;
   }
+  
+  public function pre_generateHead() {
+    if ($this->contentsManager->hasLayers()) {
+      $this->builtLayers = $this->generateLayers();
+    } else {
+      $this->builtLayers = "";
+    }
+  }
 
   public function generateHead($title, $additionalCssFiles) {
     $output  = "  <head>\n";
@@ -233,7 +249,7 @@ EOT;
 
     $output .= $this->generateFoldingJS();
 
-    if ($this->contentsManager->hasLayers()) {
+    if ($this->builtLayers != "") {
       $output .= $this->contentsManager->getLayerFunctions();
     }
 
@@ -249,39 +265,69 @@ EOT;
     $node = $this->domDocument->getElementsByTagName("structure")->item(0);
     $bodyContent = $node->textContent;
 
-    $bodyContent = str_replace("[TEMPLATE]","{$this->template}", $bodyContent );
-    $bodyContent = str_replace("[MENU]",$this->builtMenu, $bodyContent );
-    $bodyContent = str_replace("[LAYERS]",
-        $this->contentsManager->hasLayers() ?
-            //$this->contentsManager->getLayers() :
-            $this->generateLayers() :
-            "",
-        $bodyContent );
+    $bodyContent = str_replace("[TEMPLATE]", "{$this->template}", $bodyContent);
+    $bodyContent = str_replace("[MENU]", $this->builtMenu, $bodyContent);
+    $bodyContent = str_replace("[LAYERS]", $this->builtLayers, $bodyContent);
     $bodyContent = str_replace("[CONTENTS]",
         $this->contentsManager->getContents(), $bodyContent );
 
-    $bodyContent = str_replace("[BANNER-TOP]","", $bodyContent );
-    $bodyContent = str_replace("[BANNER-BOTTOM]","", $bodyContent );
+    $bodyContent = str_replace("[BANNER-TOP]", "", $bodyContent );
+    $bodyContent = str_replace("[BANNER-BOTTOM]", "", $bodyContent );
 
     print "$bodyContent";
   }
 
   public function generateLayers() {
-    $layerType = $this->contentsManager->getLayers();
-    $layersInfo = $this->domDocument->getElementsByTagName("{$layerType["type"]}")->item(0)->getElementsByTagName("code")->item(0);
-    $layersCode = $layersInfo->textContent;
+    $layersProvidedData = $this->contentsManager->getLayers();
+    $layersRequestedData = $this->domDocument->getElementsByTagName(
+                                      "{$layersProvidedData["type"]}")->item(0);
+    $layersCode = $layersRequestedData->getElementsByTagName(
+                                                  "code")->item(0)->textContent;
 
     // not used yet
-    $usedObjects = $this->domDocument->getElementsByTagName("{$layerType["type"]}-button");
+    $usedButtons = $layersRequestedData->getElementsByTagName(
+                                        "{$layersProvidedData["type"]}-button");
+    $usedBars = $layersRequestedData->getElementsByTagName(
+                                           "{$layersProvidedData["type"]}-bar");
     
     $layersCode = str_replace("[TEMPLATE]","{$this->template}", $layersCode );
-    foreach ($layerType["actions"] as $action) {
-      $tempUrl = "{$this->template}/button_{$action["name"]}_normal";
-      $tempMark = "[" . strtoupper("{$action["name"]}") . "-NORMAL]";
-      $layersCode = str_replace($tempMark,$tempUrl, $layersCode );
 
-      $tempMark = "[" . strtoupper("{$action["name"]}") . "-FUNCTION]";
-      $layersCode = str_replace($tempMark,$action["function"], $layersCode );
+    foreach ($usedButtons as $button) {
+      $name = $button->nodeValue;
+
+      // setup image for the component
+      $tempUrlNormal = "{$this->template}/button_{$name}_normal.png";
+      $tempMark = "[" . strtoupper($name) . "-NORMAL]";
+      $layersCode = str_replace($tempMark,$tempUrlNormal, $layersCode );
+
+      // setup JS functions for the component
+      $tempMark = "[" . strtoupper($name) . "-FUNCTION]";
+      $layersCode = str_replace($tempMark,
+                                $layersProvidedData["functions"][$name],
+                                $layersCode );
+
+      // setup HoverEffect for the component
+      $tempUrlHover = "{$this->template}/button_{$name}_hover.png";
+      $this->hoverHandler->addHoveredImage($tempUrlNormal,$tempUrlHover, $name);
+    }
+
+    foreach ($usedBars as $bar) {
+      $name = "{$bar->nodeValue}_bar";
+
+      // setup image for the component
+      $tempUrlNormal = "{$this->template}/{$name}_normal.png";
+      $tempMark = "[" . mb_strtoupper($name) . "-NORMAL]";
+      $layersCode = str_replace($tempMark,$tempUrlNormal, $layersCode );
+
+      // setup JS functions for the component
+      $tempMark = "[" . mb_strtoupper($name) . "-FUNCTION]";
+      $layersCode = str_replace($tempMark,
+                                $layersProvidedData["functions"][$name],
+                                $layersCode );
+
+      // setup HoverEffect for the component
+      $tempUrlHover = "{$this->template}/{$name}_hover.png";
+      $this->hoverHandler->addHoveredImage($tempUrlNormal,$tempUrlHover, $name);
     }
     
     return "$layersCode";

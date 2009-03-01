@@ -20,16 +20,13 @@ class News extends LayeredContents {
   function __construct (StdUsefulData $data) {
     $this->theNews = $data->ioResource->getRawContents("news");
     $this->template = $data->templateDir;
-    $this->theHover = $data->hoverHandler;
-    
-    $this->initFocusEffect();
   }
   
   public function getCss() {
     return "news.css";
   }
   
-  public function getLayerFunctions() {
+  public function getLayerFunctions() { // da ajax-izzare con chiamate a lato server
 ?>
     <script type="text/javascript">
 
@@ -104,27 +101,10 @@ class News extends LayeredContents {
 <?php
   }
   
-  public function initFocusEffect() {
-    $closeButtonNormal = "{$this->template}/button_close_normal.png";
-    $closeButtonHover = "{$this->template}/button_close_hover.png";
-    $previousButtonNormal = "{$this->template}/button_previous_normal.png";
-    $previousButtonHover = "{$this->template}/button_previous_hover.png";
-    $nextButtonNormal = "{$this->template}/button_next_normal.png";
-    $nextButtonHover = "{$this->template}/button_next_hover.png";
-    
-    $this->theHover->addHoveredImage($closeButtonNormal,$closeButtonHover,"close");
-    $this->theHover->addHoveredImage($previousButtonNormal,$previousButtonHover,"previous");
-    $this->theHover->addHoveredImage($nextButtonNormal,$nextButtonHover,"next");
-  }
-  
   public function getLayers() {
     $output["type"] = "news";
 
-    foreach ($this->tableOfFunctions as $name => $function) {
-      $tmp["name"] = $name;
-      $tmp["function"] = $function;
-      $output["actions"][] = $tmp;
-    }
+    $output["functions"] = $this->tableOfFunctions;
 
     return $output;
   }
