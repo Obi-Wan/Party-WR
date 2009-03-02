@@ -1,13 +1,14 @@
 <?php
 
 include_once '../DiskIO.php';
+include_once '../Contents.php';
 
 /**
  * Description of Retriever
  *
  * @author ben
  */
-class Retriever {
+class Retriever extends Contents {
 
   private $ioResource;
 
@@ -28,6 +29,7 @@ class Retriever {
         $output .= "</photos>\n";
         break;
       case "news" :
+        $output = $this->ioResource->getRawContents("news");
         break;
     }
     return $output;
@@ -37,6 +39,18 @@ class Retriever {
     $handler = new Retriever();
     return $handler->handleRequest($requestedCathegory, $requestedSubCathegory);
   }
+
+  /** Abstract method that precisely says if the class has layers or not
+   *
+   * @return a boolean
+   */
+  public function hasLayers() { return false; }
+
+  /** Abstract method that processes and returns the "cooked" contents to display
+   *
+   * @return the content to display.
+   */
+  public function getContents() { return ""; }
 }
 
 header('Content-type: text/xml');

@@ -139,7 +139,7 @@ function firstPhoto() {
 }
 
 function lastPhoto() {
-  photoIndex = photosList.length - 2;
+  photoIndex = photosList.length - 1;
   changePhotoAnim();
 }
 
