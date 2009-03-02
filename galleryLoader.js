@@ -1,10 +1,6 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 var photoIndex = 0;
-var photosList;
+var photosList = new Array();
 
 var requestHandler;
 
@@ -39,7 +35,6 @@ function parseMessages(responseXML) {
   if (responseXML == null) {
     return false;
   } else {
-    photosList = new Array(responseXML.getElementsByTagName("photos")[0].nodeValue);
     var photos = responseXML.getElementsByTagName("photo");
     for (count = 0; count < photos.length; count++) {
       photosList[count] = new Image();

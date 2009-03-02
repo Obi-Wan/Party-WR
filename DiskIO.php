@@ -55,7 +55,7 @@ class DiskIO {
         if ($iterDir->isFile() ){
           $filename = $iterDir->getFilename();
           $basename = split("\.",$filename);
-          $this->dataContents[$basename[0]] = "data/$filename";
+          $this->dataContents[$basename[0]] = "{$this->relativePath}/data/$filename";
         }
       }
     } else {
