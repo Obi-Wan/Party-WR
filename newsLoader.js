@@ -63,26 +63,18 @@ function raiseEffectFocus() {
   var darkLayer = document.getElementById('darkLayer');
   var displayerFrame = document.getElementById('displayerFrame');
   var displayerFrameBG = document.getElementById('displayerFrameBackground');
-  var buttonsContainer = document.getElementById('buttons_container');
-  var buttonsBar = document.getElementById('buttons_bar');
   darkLayer.style.display = "inline";
   displayerFrame.style.display = "inline";
   displayerFrameBG.style.display = "inline";
-  buttonsContainer.style.display = "inline";
-  buttonsBar.style.display = "inline";
 }
 
 function removeEffectFocus() {
   var darkLayer = document.getElementById('darkLayer');
   var displayerFrame = document.getElementById('displayerFrame');
   var displayerFrameBG = document.getElementById('displayerFrameBackground');
-  var buttonsContainer = document.getElementById('buttons_container');
-  var buttonsBar = document.getElementById('buttons_bar');
   darkLayer.style.display = "none";
   displayerFrame.style.display = "none";
   displayerFrameBG.style.display = "none";
-  buttonsContainer.style.display = "none";
-  buttonsBar.style.display = "none";
 }
 
 function initEffectFocus( item_id ) {

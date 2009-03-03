@@ -15,7 +15,7 @@
   </effects>
   <structure>
 <![CDATA[
-<body>
+<body [REQUESTING-CODE]>
 [LAYERS]
   <div class="mainBox">
     <img src="images/PartyHardApproved.png" class="approved" alt="" />
@@ -85,9 +85,9 @@
 ]]>
     </code>
     <objects>
-      <item>close</item>
-      <item>next</item>
-      <item>previous</item>
+      <gallery-button>close</gallery-button>
+      <gallery-button>next</gallery-button>
+      <gallery-button>previous</gallery-button>
     </objects>
   </gallery>
   <news>
@@ -109,9 +109,9 @@
 ]]>
     </code>
     <objects>
-      <gallery-button>close</gallery-button>
-      <gallery-button>next</gallery-button>
-      <gallery-button>previous</gallery-button>
+      <news-button>close</news-button>
+      <news-button>next</news-button>
+      <news-button>previous</news-button>
     </objects>
   </news>
 </root>

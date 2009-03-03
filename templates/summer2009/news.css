@@ -1,5 +1,4 @@
 
-
 div.title_news_frame {
     text-align : left;
     vertical-align:top;
@@ -7,7 +6,7 @@ div.title_news_frame {
 
 
 div.displayer_frame {
-    height : 66%;
+    height : 100%;
     display : none;
     left : 17%;
     top: 0px;
@@ -38,23 +37,21 @@ img.displayer_frame_background {
 
 div.buttons_container {
     height : 10%;
-    display : none;
-    left : 20%;
-    position : fixed;
+    left : 0%;
+    position : absolute;
     text-align : center;
     bottom : 0%;
     vertical-align : middle;
-    width : 60%;
+    width : 100%;
     z-index : 51;
   }
   
 img.buttons_bar {
     height : 16%;
-    display : none;
-    position : fixed;
+    position : absolute;
     bottom : -5%;
-    left : 20%;
-    width : 60%;
+    left : 0%;
+    width : 100%;
     z-index : 50;
   }
 
