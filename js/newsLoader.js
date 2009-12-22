@@ -52,7 +52,16 @@ function parseMessages(responseXML) {
           thisItem.getElementsByTagName("cathegory")[0].childNodes[0].nodeValue,
           thisItem.getElementsByTagName("description")[0].childNodes[0].nodeValue
         );
-      //photosList[count].src = photos[count].childNodes[0].nodeValue;
+//      document.getElementById("news-" + count).innerHTML =
+//          '              <p><b>Time:</b> <i>'+
+//          thisItem.getElementsByTagName("time")[0].childNodes[0].nodeValue +
+//          '</i></p>' +
+//          '              <p><b>Cathegory:</b> <i>'+
+//          thisItem.getElementsByTagName("cathegory")[0].childNodes[0].nodeValue +
+//          '</i></p>' +
+//          '              <p><b>Description:</b> <i>'+
+//          thisItem.getElementsByTagName("description")[0].childNodes[0].nodeValue +
+//          '</i></p> '
     }
     return true;
   }

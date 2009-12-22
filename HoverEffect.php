@@ -31,7 +31,7 @@ class HoverEffect {
   }
   
   public function printHoverFunctions() {
-    return '    <script type="text/javascript" src="hoverFunctions.js"></script>'."\n";
+    return '    <script type="text/javascript" src="js/hoverFunctions.js"></script>'."\n";
   }
 }
   // fine
