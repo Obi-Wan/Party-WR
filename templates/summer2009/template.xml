@@ -29,12 +29,16 @@
 [MENU]
       <div class="container_corpo">
         <div class="mid_container_corpo">
-          <div class="topper_corpo">
-            <img src="[TEMPLATE]/corner-hl.png" class="corner-hl" alt="" />
-            <img src="[TEMPLATE]/corner-hr.png" class="corner-hr" alt="" />
+          <div class="topper-corpo topper-bottomer">
+            <span class="corner-hl corner"> </span>
+            <span class="corner-hr corner"> </span>
           </div>
           <div class="corpo">
 [CONTENTS]
+          </div>
+          <div class="bottomer-corpo topper-bottomer">
+            <span class="corner-ll corner"> </span>
+            <span class="corner-lr corner"> </span>
           </div>
         </div>
       </div>

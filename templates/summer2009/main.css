@@ -91,7 +91,7 @@ div.corpo {
     font-family:cursive;
     text-align : center;
     border-color: #00378d;
-    border-width: 1px;
+    border-width: 0px 1px 0px 1px;
     border-style: solid;
 }
 
@@ -99,56 +99,84 @@ b, h1, h2 {
     color : #000048;
 }
 
-div.topper_corpo {
-  vertical-align : baseline;
+.topper-bottomer {
+  border-color: #00378d;
+  border-style: solid;
+  vertical-align: baseline;
+  height: 14px;
 }
 
-img.corner-hl {
-  display: block;
-  position: absolute;
-  top: 0px;
-  left: 0px;
+.topper-corpo {
+  border-width: 1px 0px 0px 0px;
 }
 
-img.corner-hr {
+.bottomer-corpo {
+  border-width: 0px 0px 1px 0px;
+}
+
+span.corner {
   display: block;
-  position: absolute;
-  top: 0px;
-  right: 0px;
+  height: 15px;
+  width: 15px;
+  position: relative;
+}
+
+span.corner-hl {
+  top: -1px;
+  float: left;
+  background: transparent url(corner-hl.png) no-repeat scroll left top;
+}
+
+span.corner-hr {
+  top: -1px;
+  float: right;
+  background: transparent url(corner-hr.png) no-repeat scroll right top;
+}
+
+span.corner-ll {
+  bottom: 0px;
+  float: left;
+  background: transparent url(corner-ll.png) no-repeat scroll left bottom;
+}
+
+span.corner-lr {
+  bottom: 0px;
+  float: right;
+  background: transparent url(corner-lr.png) no-repeat scroll right bottom;
 }
 
 img.dark_layer {
   opacity : 1;
-    display : none;
-    position : fixed;
-    height : 100%;
-    width : 100%;
-    z-index : 50;
-    left : 0px;
-    top : 0px;
-  }
+  display : none;
+  position : fixed;
+  height : 100%;
+  width : 100%;
+  z-index : 50;
+  left : 0px;
+  top : 0px;
+}
 
 
 img.close_button:hover {
-    cursor : pointer;
-  }
+  cursor : pointer;
+}
 
 
 img.previous_button:hover {
-    cursor : pointer;
-  }
+  cursor : pointer;
+}
 
 
 img.next_button:hover {
-    cursor : pointer;
-  }
+  cursor : pointer;
+}
 
 img.last_button:hover {
-    cursor : pointer;
-  }
+  cursor : pointer;
+}
 
 
 img.first_button:hover {
-    cursor : pointer;
-  }
+  cursor : pointer;
+}
 
