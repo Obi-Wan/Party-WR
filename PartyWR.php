@@ -119,13 +119,9 @@ class PartyWR {
   }
 
   public function printHead() {
-    $additionalCssFiles = array();
-    $cssFile = $this->contentsManager->getCss();
-    if ($cssFile != "") {
-      $additionalCssFiles[] = $cssFile;
-    }
     $this->layoutMananger->pre_generateHead();
-    $this->layoutMananger->generateHead($this->title, $additionalCssFiles);
+    $this->layoutMananger->generateHead(
+            $this->title, $this->contentsManager->getCss() );
   }
   
   public function printBody() {

@@ -22,7 +22,7 @@ abstract class Contents {
    * @return the entry in the html header that says where to get the CSS of this class
    */
   public function getCss() {
-      return "";
+      return array();
   }
   
   protected $theHover;

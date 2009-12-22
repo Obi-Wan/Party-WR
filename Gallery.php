@@ -31,7 +31,9 @@ class Gallery extends LayeredContents {
   }
   
   public function getCss() {
-    return "gallery.css";
+    $css = parent::getCss();
+    $css[] = "gallery.css";
+    return $css;
   }
 
   public function getLayerFunctions() {

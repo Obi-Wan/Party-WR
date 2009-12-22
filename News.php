@@ -23,14 +23,16 @@ class News extends LayeredContents {
   }
   
   public function getCss() {
-    return "news.css";
+    $css = parent::getCss();
+    $css[] = "news.css";
+    $css[] = "jquery-ui/jquery-ui-1.7.2.custom.css";
+    return $css;
   }
 
   public function getLayerFunctions() {
     return "    <script type=\"text/javascript\" src=\"js/newsLoader.js\"></script>\n".
            "    <script type=\"text/javascript\" src=\"js/jquery-1.3.2.js\"></script>\n".
            "    <script type=\"text/javascript\" src=\"js/jquery-ui-1.7.2.custom.js\"></script>\n".
-           "    <link type=\"text/css\" href=\"$this->template/jquery-ui/jquery-ui-1.7.2.custom.css\" rel=\"stylesheet\" />\n".
            "    <script type=\"text/javascript\">\n".
            "      $(function() {\n".
            "          $(\"#news_frame\").accordion();\n".
