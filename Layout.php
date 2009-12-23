@@ -56,7 +56,6 @@ class Layout {
     $output = <<<EOT
     <script type="text/javascript">
       var expandable = new Array();
-      var folded = new Array();
 
 EOT;
     foreach ($this->foldingMenus as $singleItem) {
@@ -68,34 +67,15 @@ EOT;
       }
 
       $output .= "      expandable['{$singleItem["name"]}'] = {$singleItem["name"]};\n";
-      $output .= "      folded['{$singleItem["name"]}'] = true;\n";
     }
     $output .= <<<EOT
-      function fold_unfold_expandable( branch, property ) {
-        for (i = 0; i < expandable[branch].length; i++) {
-          document.getElementById(expandable[branch][i]).style.display= property;
-        }
+      function applyPropertyToObject( branch, i ) {
+        $("#" + expandable[branch][i]).toggle('drop', '', 500);
       }
-
-      function fold_unfold_expandable_animation( branch, property ) {
-        for (i = 0; i < expandable[branch].length; i++) {
-          var time = i * 100;
-          setTimeout("applyPropertyToObject(\'" + branch + "\',\'" + i + "\',\'"
-                      + property + "\')",time);
-        }
-      }
-
-      function applyPropertyToObject( branch, i , property ) {
-        document.getElementById(expandable[branch][i]).style.display= property;
-      }
-
       function fold_unfold( idOgg ) {
-        if (folded[idOgg]) {
-          fold_unfold_expandable_animation(idOgg,"inline");
-          folded[idOgg] = false;
-        } else {
-          fold_unfold_expandable_animation(idOgg,"none");
-          folded[idOgg] = true;
+        for (i = 0; i < expandable[idOgg].length; i++) {
+          var time = i * 250;
+          setTimeout("applyPropertyToObject(\'" + idOgg + "\',\'" + i + "\')",time);
         }
       }
     </script>
@@ -244,6 +224,8 @@ EOT;
       }
     }
 
+    $output .= "    <script type=\"text/javascript\" src=\"js/jquery-1.3.2.js\"></script>\n";
+    $output .= "    <script type=\"text/javascript\" src=\"js/jquery-ui-1.7.2.custom.js\"></script>\n";
     $output .= $this->hoverHandler->initHoveredCache();
     $output .= $this->hoverHandler->printHoverFunctions();
     

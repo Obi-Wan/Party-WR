@@ -28,9 +28,7 @@ class News extends NonLayeredContents {
   }
 
   public function getAdditionalJS() {
-    return "    <script type=\"text/javascript\" src=\"js/jquery-1.3.2.js\"></script>\n".
-           "    <script type=\"text/javascript\" src=\"js/jquery-ui-1.7.2.custom.js\"></script>\n".
-           "    <script type=\"text/javascript\">\n".
+    return "    <script type=\"text/javascript\">\n".
            "      $(function() {\n".
            "          $(\"#news_frame\").accordion();\n".
            "        });\n".
