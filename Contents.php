@@ -22,7 +22,23 @@ abstract class Contents {
    * @return the entry in the html header that says where to get the CSS of this class
    */
   public function getCss() {
-      return array();
+    return array();
+  }
+
+  /** Tells whether we need to include additional Javascript
+   *
+   * @return boolean
+   */
+  public function hasAdditionalJS() {
+    return false;
+  }
+
+  /** Returns the additional Javascript
+   *
+   * @return string
+   */
+  public function getAdditionalJS() {
+    return "";
   }
   
   protected $theHover;
@@ -43,9 +59,9 @@ abstract class Contents {
    * @return formatted text
    */
   public function bbCodeCooking( $rawString ) {
-    $temp = str_replace("[b]","<span style=\"font-weight: bold;\">", $rawString );
+    $temp = str_replace("[b]","<span class=\"bold\">", $rawString );
     $temp = str_replace("[/b]","</span>", $temp );
-    $temp = str_replace("[i]","<span style=\"font-style: italic;\">", $temp );
+    $temp = str_replace("[i]","<span class=\"italic\">", $temp );
     $temp = str_replace("[/i]","</span>", $temp );
     $temp = str_replace("[u]","<span style=\"text-decoration: underline;\">", $temp );
     return str_replace("[/u]","</span>", $temp );

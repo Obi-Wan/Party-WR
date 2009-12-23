@@ -246,6 +246,10 @@ EOT;
 
     $output .= $this->hoverHandler->initHoveredCache();
     $output .= $this->hoverHandler->printHoverFunctions();
+    
+    if ($this->contentsManager->hasAdditionalJS()) {
+      $output .= $this->contentsManager->getAdditionalJS();
+    }
 
     $output .= $this->generateFoldingJS();
 

@@ -50,36 +50,26 @@
   </structure>
   <menu>
     <initCode>
-<![CDATA[
-      <form method="post" action="index.php" class="container_menu"><div class="menu">
-]]>
+<![CDATA[      <form method="post" action="index.php" class="container_menu"><div class="menu">]]>
     </initCode>
     <closeCode>
-<![CDATA[
-      </div></form>
-]]>
+<![CDATA[      </div></form>]]>
     </closeCode>
     <menuButton>
       <code>
-<![CDATA[
-        <input id="[NAME]" name="[NAME]" type="image" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />
-]]>
+<![CDATA[        <input id="[NAME]" name="[NAME]" type="image" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />]]>
       </code>
       <type>input</type>
     </menuButton>
     <submenuButton>
       <code>
-<![CDATA[
-          <input id="[NAME]" name="[LEAF]" value="[LEAF]" type="image" src="[IMAGE-NORMAL]" class="button_submenu" alt="[LEAF]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />
-]]>
+<![CDATA[          <input id="[NAME]" name="[LEAF]" value="[LEAF]" type="image" src="[IMAGE-NORMAL]" class="button_submenu" alt="[LEAF]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />]]>
       </code>
       <type>input</type>
     </submenuButton>
     <expandableButton>
       <code>
-<![CDATA[
-        <img id="[NAME]" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" onclick="fold_unfold('[NAME]')" />
-]]>
+<![CDATA[        <img id="[NAME]" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" onclick="fold_unfold('[NAME]')" />]]>
       </code>
       <type>img</type>
     </expandableButton>
@@ -119,10 +109,10 @@
   <div id="displayerFrame" class="displayer_frame">
     <img id="close" class="close_button" src="[CLOSE-NORMAL]" onclick="removeEffectFocus()" onmouseover="mouseOver('close')" onmouseout="mouseOut('close')" />
     <div id="" class="item_frame">
-      <p><b>Title:</b> <i id="title_in_frame"> </i></p>
-      <p><b>Time:</b> <i id="time_in_frame"> </i></p>
-      <p><b>Cathegory:</b> <i id="cathegory_in_frame"> </i></p>
-      <p><b>Description:</b> <i id="description_in_frame"> </i></p>
+      <p><span class="bold">Title:</span>       <i id="title_in_frame"> </i></p>
+      <p><span class="bold">Time:</span>        <i id="time_in_frame"> </i></p>
+      <p><span class="bold">Cathegory:</span>   <i id="cathegory_in_frame"> </i></p>
+      <p><span class="bold">Description:</span> <i id="description_in_frame"> </i></p>
     </div>
     <img id="buttons_bar" class="buttons_bar" src="[BUTTONS_BAR-NORMAL]">
     <div id="buttons_container" class="buttons_container" onclick="[BUTTONS_BAR-FUNCTION]" onmouseover="mouseOver('buttons_bar')" onmouseout="mouseOut('buttons_bar')">

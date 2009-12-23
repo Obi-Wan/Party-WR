@@ -3,19 +3,13 @@
 define("NEWS_CLASS","1");
 
 include_once 'DiskIO.php';
-include_once 'LayeredContents.php';
+include_once 'NonLayeredContents.php';
 
 /** Nice handler for news visualization.
  */
-class News extends LayeredContents {
+class News extends NonLayeredContents {
   
   protected $theNews;
-  
-  protected $tableOfFunctions = array (
-                    "close" => "removeEffectFocus()",
-                    "next" => "nextItem()",
-                    "previous" => "previousItem()"
-  );
   
   function __construct (StdUsefulData $data) {
     $this->theNews = $data->ioResource->getRawContents("news");
@@ -29,9 +23,12 @@ class News extends LayeredContents {
     return $css;
   }
 
-  public function getLayerFunctions() {
-    return "    <script type=\"text/javascript\" src=\"js/newsLoader.js\"></script>\n".
-           "    <script type=\"text/javascript\" src=\"js/jquery-1.3.2.js\"></script>\n".
+  public function hasAdditionalJS() {
+    return true;
+  }
+
+  public function getAdditionalJS() {
+    return "    <script type=\"text/javascript\" src=\"js/jquery-1.3.2.js\"></script>\n".
            "    <script type=\"text/javascript\" src=\"js/jquery-ui-1.7.2.custom.js\"></script>\n".
            "    <script type=\"text/javascript\">\n".
            "      $(function() {\n".
@@ -40,24 +37,19 @@ class News extends LayeredContents {
            "    </script>\n";
   }
   
-  public function getLayers() {
-    $output["type"] = "news";
-
-    $output["functions"] = $this->tableOfFunctions;
-
-    return $output;
-  }
-  
   public function getContents() {
     $count = 0;
     $output = '          <div class="title_news_frame" id="news_frame">'."\n";
     foreach ($this->theNews->unit as $unit) {
       $output .= "            <h3><a href=\"#\">".$this->getShortTimeStamp($unit->time).
-                 " ".htmlentities($unit->title,ENT_QUOTES,"utf-8")."</a></h3>\n".
+                 " - ".htmlentities($unit->title,ENT_QUOTES,"utf-8")."</a></h3>\n".
                  "            <div id=\"news-$count\">".
-                 "              <p><b>Time:</b> <i>". $unit->time ."</i></p>".
-                 "              <p><b>Cathegory:</b> <i>". $unit->cathegory ."</i></p>".
-                 "              <p><b>Description:</b> <i>". $unit->description ."</i></p> ".
+                 "              <p><span class=\"bold\">Time:</span>".
+                  " <span class=\"italic\">". $unit->time ."</span></p>".
+                 "              <p><span class=\"bold\">Cathegory:</span>".
+                  " <span class=\"italic\">". $unit->cathegory ."</span></p>".
+                 "              <p><span class=\"bold\">Description:</span>".
+                  " <span class=\"italic\">". $unit->description ."</span></p> ".
                  "            </div>\n";
       $count++;
     }
@@ -68,14 +60,6 @@ class News extends LayeredContents {
   private function getShortTimeStamp($rawTS) {
     $tempTS = split(" ",$rawTS);
     return "$tempTS[2]/$tempTS[1]/$tempTS[5]";
-  }
-
-  public function getOnloadCode() {
-    return "onload=\"doRequest()\"";
-  }
-
-  public function needsOnload() {
-    return true;
   }
 }
 

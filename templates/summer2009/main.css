@@ -1,5 +1,18 @@
 
 
+h1, h2 {
+    color : #000048;
+}
+
+b, span.bold {
+  color: #ff9900;
+  font-weight: bold;
+}
+
+span.italic {
+  font-style: italic;
+}
+
 body {
     color : black;
     font-family : Verdana, Arial, Helvetica;
@@ -93,10 +106,6 @@ div.corpo {
     border-color: #00378d;
     border-width: 0px 1px 0px 1px;
     border-style: solid;
-}
-
-b, h1, h2 {
-    color : #000048;
 }
 
 .topper-bottomer {
