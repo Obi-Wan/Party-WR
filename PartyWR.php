@@ -20,16 +20,26 @@ include_once 'Layout.php';
  */
 class PartyWR {
 
-  private $ioResource;
-  private $hoverHandler;
+  /** It hanles all the output and prints it formatted */
   private $layoutMananger;
-  private $data;
-  private $template;
+
+  /** It references all the important objects/data to pass to the content handlers */
+  private $partyWResources;
+
+  /** The object that manages the content */
   private $contentsManager;
-  private $theMenu;
+
+  /** It generates the menu */
+  private $menuManager;
+
+  /** The title of the site */
   private $title;
+
+  /** It holds the structure of the site */
   private $siteStructure;
-  private $features;
+
+//  Features not supported yet
+//  private $features;
 
   public function __construct() {
 
@@ -42,38 +52,41 @@ class PartyWR {
   }
   
   private function initComponents() {
-    $this->ioResource = new DiskIO();
-    
-    $this->hoverHandler = new HoverEffect();
+    $ioResource = new DiskIO();
+    $hoverHandler = new HoverEffect();
 
-    $this->loadConfig();
+    $this->loadConfig( $ioResource );
 
     // TODO delega la gestione della formattazione tutta al layoutManager
-    $this->layoutMananger = new Layout("templates",$this->ioResource,$this->hoverHandler);
-    $this->template = $this->layoutMananger->getChosenTemplate();
+    $this->layoutMananger = new Layout("templates", $ioResource, $hoverHandler);
 
-    $this->data = new StdUsefulData($this->ioResource,$this->template,$this->hoverHandler);
+    /* Ok now we save the refereces to the useful classes */
+    $this->partyWResources = new StdUsefulData(
+            $ioResource,
+            $this->layoutMananger->getChosenTemplate(),
+            $hoverHandler);
     
-    $this->contentsManager = $this->getContentsManager();
+    $this->contentsManager = $this->getContentsManager( $ioResource );
     $this->layoutMananger->setContentsManager($this->contentsManager);
 
     /* Menu instantiated and created (not shown) */
-    $this->theMenu = new Menu($this->data);
-    $this->theMenu->setSiteStructure($this->siteStructure);
-    $this->layoutMananger->generateMenu($this->theMenu->getMenu());
+    $this->menuManager = new Menu($this->partyWResources);
+    $this->menuManager->setSiteStructure($this->siteStructure);
+    $this->layoutMananger->generateMenu($this->menuManager->getMenu());
 
     // include_once 'Banner.php';
   }
 
-  private function loadConfig() {
-    $rawConfig = $this->ioResource->getRawContents("config");
+  private function loadConfig( DiskIO $ioResource ) {
+    $rawConfig = $ioResource->getRawContents("config");
     $this->title = "$rawConfig->title";
     foreach ($rawConfig->sections->item as $section) {
       $this->siteStructure["{$section->name}"] = "{$section->class}";
     }
-    foreach ($rawConfig->platform->has as $feature) {
-      $this->features[] = "{$feature}";
-    }
+//    not supported yet, so comment it out.
+//    foreach ($rawConfig->platform->has as $feature) {
+//      $this->features[] = "{$feature}";
+//    }
     unset($rawConfig);
   }
 
@@ -87,16 +100,16 @@ class PartyWR {
     return false;
   }
 
-  private function getContentsManager() {
+  private function getContentsManager( DiskIO $ioResource ) {
     foreach ($this->siteStructure as $name_section => $type_section) {
       if ($_REQUEST["{$name_section}_x"] == true) {
         return $this->getSelectedClass($name_section, $type_section);
       }
     }
-    $gallery_years = $this->ioResource->getGalleries();
+    $gallery_years = $ioResource->getGalleries();
     if ($this->isOfGalleries($anno,$gallery_years)) {
       include_once 'Gallery.php';
-      return new Gallery($this->data,$anno);
+      return new Gallery($this->partyWResources,$anno);
     }
     /*if no supplied, defaults to the first section*/
     reset($this->siteStructure);
@@ -107,13 +120,13 @@ class PartyWR {
     include_once "{$type_section}.php";
     switch ($type_section) {
       case "Home": {
-        return new Home($this->data);
+        return new Home($this->partyWResources);
       }
       case "News": {
-        return new News($this->data);
+        return new News($this->partyWResources);
       }
       case "GenericNonLayeredContents": {
-        return new GenericNonLayeredContents($this->data,$name_section);
+        return new GenericNonLayeredContents($this->partyWResources,$name_section);
       }
     }
   }
