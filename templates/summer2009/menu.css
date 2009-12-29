@@ -1,5 +1,5 @@
 
-form.container_menu {
+div.container_menu {
     width : 23%;
     float : left;
     max-width : 25%;
@@ -29,13 +29,18 @@ div.menu {
   }
 
 
-input.button_submenu {
+.button_submenu {
     display : none;
     position :relative;
     left : 15px;
   }
 
 
-input.button_submenu:hover {
+.button_submenu:hover {
     cursor : pointer;
   }
+
+a.menu_button img {
+    border: 0px;
+    border-style: none;
+}

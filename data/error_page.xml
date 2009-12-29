@@ -1,0 +1,9 @@
+<?xml version='1.0' standalone='yes'?>
+<error_page>
+  <body>
+    <contents>Wrong Page!</contents>
+    <style>text-align: center;</style>
+  </body>
+  <images>
+  </images>
+</error_page>

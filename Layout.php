@@ -137,6 +137,8 @@ EOT;
     $format = str_replace("[NAME]",$name, $format );
     $format = str_replace("[IMAGE-NORMAL]",$imageNormal, $format );
 
+    $format = str_replace("[HREF]", "index.php?page={$name}", $format );
+
     return $format;
   }
 
@@ -165,6 +167,8 @@ EOT;
     $format = str_replace("[NAME]",$name, $format );
     $format = str_replace("[LEAF]",$leaf, $format );
     $format = str_replace("[IMAGE-NORMAL]",$imageNormal, $format );
+
+    $format = str_replace("[HREF]", "index.php?page={$root}&{$root}={$leaf}", $format );
 
     return $format;
   }

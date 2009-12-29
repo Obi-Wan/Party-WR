@@ -23,7 +23,7 @@ abstract class NonLayeredContents extends Contents {
     
     /* For every image it checks in the body if it's called and substitutes it. */
     if (is_array($this->images)) {
-      for ($count = 0;$count <= max(array_keys($this->images));$count++) {
+      for ($count = 0;$count <= count($this->images);$count++) {
         $isInTemplate = ($this->images[$count]->template == "true");
         $needsHover = ($this->images[$count]->hover == "true");
 

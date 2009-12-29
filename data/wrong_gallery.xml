@@ -1,0 +1,9 @@
+<?xml version='1.0' standalone='yes'?>
+<wrong_gallery>
+  <body>
+    <contents>No such gallery!</contents>
+    <style>text-align: center;</style>
+  </body>
+  <images>
+  </images>
+</wrong_gallery>

@@ -90,30 +90,21 @@ class PartyWR {
     unset($rawConfig);
   }
 
-  private function isOfGalleries(&$anno,$gallery_years) { /*temporary fix to overcome Internet Exploder bullshitness*/
-    foreach ($gallery_years as $thisYear) {
-      if ($_REQUEST["{$thisYear}_x"]) {
-        $anno = $thisYear;
-        return true;
-      }
-    }
-    return false;
-  }
-
   private function getContentsManager( DiskIO $ioResource ) {
-    foreach ($this->siteStructure as $name_section => $type_section) {
-      if ($_REQUEST["{$name_section}_x"] == true) {
-        return $this->getSelectedClass($name_section, $type_section);
-      }
+    $requested_page = $_REQUEST["page"];
+
+    // No page selected => default is first of the list
+    if ($requested_page == NULL || $requested_page == "") {
+      return $this->getSelectedClass(key($this->siteStructure), current($this->siteStructure));
+
+    // One of the pages in the list selected
+    } else if (array_key_exists($requested_page, $this->siteStructure)) {
+      return $this->getSelectedClass($requested_page, $this->siteStructure[$requested_page]);
+
+    // Wrong page selected
+    } else {
+      return $this->getSelectedClass("Error", "GenericNonLayeredContents");
     }
-    $gallery_years = $ioResource->getGalleries();
-    if ($this->isOfGalleries($anno,$gallery_years)) {
-      include_once 'Gallery.php';
-      return new Gallery($this->partyWResources,$anno);
-    }
-    /*if no supplied, defaults to the first section*/
-    reset($this->siteStructure);
-    return $this->getSelectedClass(key($this->siteStructure), current($this->siteStructure));
   }
   
   private function getSelectedClass($name_section, $type_section) {
@@ -126,7 +117,20 @@ class PartyWR {
         return new News($this->partyWResources);
       }
       case "GenericNonLayeredContents": {
-        return new GenericNonLayeredContents($this->partyWResources,$name_section);
+        if ($name_section != "Error") {
+          return GenericNonLayeredContents::getInstance($this->partyWResources,$name_section);
+        } else {
+          return GenericNonLayeredContents::getErrorPageGeneric($this->partyWResources);
+        }
+      }
+      case "Gallery": {
+        $gallery = $_REQUEST["gallery"];
+        if (($gallery != NULL) && ($gallery != "")) {
+          return new Gallery($this->partyWResources,$gallery);
+        } else {
+          include_once 'GenericNonLayeredContents.php';
+          return GenericNonLayeredContents::getErrorPageNoSuchGallery($this->partyWResources);
+        }
       }
     }
   }

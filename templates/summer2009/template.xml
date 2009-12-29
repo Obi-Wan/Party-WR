@@ -50,20 +50,20 @@
   </structure>
   <menu>
     <initCode>
-<![CDATA[      <form method="post" action="index.php" class="container_menu"><div class="menu">]]>
+<![CDATA[      <div class="container_menu"><div class="menu">]]>
     </initCode>
     <closeCode>
-<![CDATA[      </div></form>]]>
+<![CDATA[      </div></div>]]>
     </closeCode>
     <menuButton>
       <code>
-<![CDATA[        <input id="[NAME]" name="[NAME]" type="image" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />]]>
+<![CDATA[        <a href="[HREF]" class="menu_button"><img id="[NAME]" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" /></a>]]>
       </code>
       <type>input</type>
     </menuButton>
     <submenuButton>
       <code>
-<![CDATA[          <input id="[NAME]" name="[LEAF]" value="[LEAF]" type="image" src="[IMAGE-NORMAL]" class="button_submenu" alt="[LEAF]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />]]>
+<![CDATA[          <a href="[HREF]" class="menu_button"><img id="[NAME]" src="[IMAGE-NORMAL]" class="button_submenu" alt="[LEAF]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" /></a>]]>
       </code>
       <type>input</type>
     </submenuButton>
