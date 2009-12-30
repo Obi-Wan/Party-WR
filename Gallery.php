@@ -37,7 +37,7 @@ class Gallery extends LayeredContents {
   }
 
   public function getLayerFunctions() {
-    return '    <script type="text/javascript" src="js/galleryLoader.js"></script>'."\n";
+    return '    <script type="text/javascript" src="js/jq-galleryLoader.js"></script>'."\n";
   }
   
   public function getLayers( ) {
