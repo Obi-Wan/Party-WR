@@ -125,7 +125,8 @@ class PartyWR {
       }
       case "Gallery": {
         $gallery = $_REQUEST["gallery"];
-        if (($gallery != NULL) && ($gallery != "")) {
+        if (($gallery != NULL) && ($gallery != "") &&
+                (in_array($gallery, $this->partyWResources->ioResource->getGalleries()))) {
           return new Gallery($this->partyWResources,$gallery);
         } else {
           include_once 'GenericNonLayeredContents.php';
