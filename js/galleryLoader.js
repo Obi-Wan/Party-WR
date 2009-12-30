@@ -5,7 +5,7 @@ var photosList = new Array();
 var requestHandler;
 
 
-function doRequest( subgallery ) {
+function initGallery( subgallery ) {
   var url = "DataRetrievers/Retriever.php?id=gallery&subid=" + subgallery;
   requestHandler = initRequest();
   requestHandler.open("GET", url, true);

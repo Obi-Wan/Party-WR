@@ -61,7 +61,7 @@ class Gallery extends LayeredContents {
   }
 
   public function getOnloadCode() {
-    return "onload=\"doRequest('{$this->subGallery}')\"";
+    return "onload=\"initGallery('{$this->subGallery}')\"";
   }
 
   public function needsOnload() {
