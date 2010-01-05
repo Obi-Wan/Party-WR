@@ -17,17 +17,6 @@ function initGallery(gallery){
       parseMessages(html);
     }
   }); //close $.ajax(
-
-  // needed
-  setupGallery();
-}
-
-function setupGallery() {
-  $("#close").click(function() {removePhotoFocus()});
-  $("#last").click(function() {lastPhoto()});
-  $("#first").click(function() {firstPhoto()});
-  $("#next").click(function() {nextPhoto()});
-  $("#previous").click(function() {previousPhoto()});
 }
 
 function parseMessages(responseXML) {
@@ -45,13 +34,11 @@ function parseMessages(responseXML) {
 
 function raisePhotoFocus() {
   $('#darkLayer').show("normal");
-  $('#displayerFrameBG').show("normal");
   $('#displayerFrame').show("normal");
 }
 
 function removePhotoFocus() {
   $('#darkLayer').hide("normal");
-  $('#displayerFrameBG').hide("normal");
   $('#displayerFrame').hide("normal");
 }
 
@@ -62,16 +49,16 @@ function initPhotoFocus( photo_id ) {
 }
 
 function changePhotoAnim() {
-  $("#photoObject").hide('blind', '', 500);
+  $("#photoObject").addClass("hidden", 500);
   setTimeout("document.getElementById('photoObject').src = photosList[photoIndex].src;",
               500);
-  setTimeout("$('#photoObject').show('blind', '', 500);",600);
+  setTimeout("$('#photoObject').removeClass('hidden', 500);",600);
 }
 
 function putPhotoAnim() {
   $("#photoObject").hide();
   document.getElementById('photoObject').src = photosList[photoIndex].src;
-  $('#photoObject').show('blind', '', 500);
+  $('#photoObject').show();
 }
 
 function nextPhoto() {

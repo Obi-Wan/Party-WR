@@ -296,12 +296,11 @@ EOT;
       $tempMark = "[" . strtoupper($name) . "-NORMAL]";
       $layersCode = str_replace($tempMark,$tempUrlNormal, $layersCode );
 
-      // FIXME eliminate the need for this code.
-//      // setup JS functions for the component
-//      $tempMark = "[" . strtoupper($name) . "-FUNCTION]";
-//      $layersCode = str_replace($tempMark,
-//                                $layersProvidedData["functions"][$name],
-//                                $layersCode );
+      // setup JS functions for the component
+      $tempMark = "[" . strtoupper($name) . "-FUNCTION]";
+      $layersCode = str_replace($tempMark,
+                                $layersProvidedData["functions"][$name],
+                                $layersCode );
 
       // setup HoverEffect for the component
       $tempUrlHover = "{$this->template}/button_{$name}_hover.png";

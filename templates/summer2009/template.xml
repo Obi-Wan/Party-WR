@@ -77,8 +77,8 @@
   <loading>
     <code>
 <![CDATA[
-  <div id="loadingFrame" class="loading_frame">
-    <img id="buttons_bar" class="loading_image" src="[LOADING-IMAGE]">
+  <div id="loadingFrame">
+    <img id="loading_image" src="[LOADING-IMAGE]">
 
   </div>
 ]]>
@@ -90,17 +90,16 @@
     <code>
 <![CDATA[
   <img id="darkLayer" class="dark_layer" src="[TEMPLATE]/dark_layer.png" />
-  <img id="displayerFrameBackground" class="displayer_frame_background" src="[TEMPLATE]/sfondo_photo_frame.png" />
-  <div id="displayerFrame" class="displayer_frame">
-    <img id="buttons_bar" class="buttons_bar" src="[BUTTONS_BAR-NORMAL]" onclick="[BUTTONS_BAR-FUNCTION]">
-    <div id="buttons_container" class="buttons_container" onmouseover="mouseOver('buttons_bar')" onmouseout="mouseOut('buttons_bar')">
-      <img id="first" class="first_button" src="[FIRST-NORMAL]" onmouseover="mouseOver('first')" onmouseout="mouseOut('first')" />
-      <img id="previous" class="previous_button" src="[PREVIOUS-NORMAL]" onmouseover="mouseOver('previous')" onmouseout="mouseOut('previous')" />
-      <img id="next" class="next_button" src="[NEXT-NORMAL]" onmouseover="mouseOver('next')" onmouseout="mouseOut('next')" />
-      <img id="last" class="last_button" src="[LAST-NORMAL]" onmouseover="mouseOver('last')" onmouseout="mouseOut('last')" />
+  <div id="displayerFrame">
+    <img id="buttons_bar" src="[BUTTONS_BAR-NORMAL]" onclick="[BUTTONS_BAR-FUNCTION]">
+    <div id="buttons_container" onmouseover="mouseOver('buttons_bar')" onmouseout="mouseOut('buttons_bar')">
+      <img id="first" class="first_button" src="[FIRST-NORMAL]" onclick="[FIRST-FUNCTION]" onmouseover="mouseOver('first')" onmouseout="mouseOut('first')" />
+      <img id="previous" class="previous_button" src="[PREVIOUS-NORMAL]" onclick="[PREVIOUS-FUNCTION]" onmouseover="mouseOver('previous')" onmouseout="mouseOut('previous')" />
+      <img id="next" class="next_button" src="[NEXT-NORMAL]" onclick="[NEXT-FUNCTION]" onmouseover="mouseOver('next')" onmouseout="mouseOut('next')" />
+      <img id="last" class="last_button" src="[LAST-NORMAL]" onclick="[LAST-FUNCTION]" onmouseover="mouseOver('last')" onmouseout="mouseOut('last')" />
     </div>
-   <img id="close" class="close_button" src="[CLOSE-NORMAL]" onmouseover="mouseOver('close')" onmouseout="mouseOut('close')" />
-      <img id="photoObject" class="photo_object" src="[TEMPLATE]/blank.png" />
+   <img id="close" src="[CLOSE-NORMAL]" onclick="[CLOSE-FUNCTION]" onmouseover="mouseOver('close')" onmouseout="mouseOut('close')" />
+   <img id="photoObject" src="[TEMPLATE]/blank.png" />
   </div>
 ]]>
     </code>
