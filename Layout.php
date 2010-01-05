@@ -297,14 +297,18 @@ EOT;
       $layersCode = str_replace($tempMark,$tempUrlNormal, $layersCode );
 
       // setup JS functions for the component
-      $tempMark = "[" . strtoupper($name) . "-FUNCTION]";
-      $layersCode = str_replace($tempMark,
-                                $layersProvidedData["functions"][$name],
-                                $layersCode );
+      $tempMark = "[" . strtoupper($name) . "-FUNCTIONS]";
+      $JScode  = "onclick=\"".$layersProvidedData["functions"][$name]."\" ";
 
       // setup HoverEffect for the component
       $tempUrlHover = "{$this->template}/button_{$name}_hover.png";
       $this->hoverHandler->addHoveredImage($tempUrlNormal,$tempUrlHover, $name);
+
+      $JScode .= "onmouseover=\"mouseOver('{$name}')\" ".
+                 "onmouseout=\"mouseOut('{$name}')\"";
+      $layersCode = str_replace($tempMark,
+                                $JScode,
+                                $layersCode );
     }
 
     foreach ($usedBars as $bar) {
