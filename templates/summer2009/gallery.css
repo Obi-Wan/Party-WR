@@ -51,10 +51,6 @@ img.gallery_photo_thumb:hover {
   margin: 0px;
 }
 
-#photoObject.hidden {
-  opacity:.0;
-}
-
 #close {
   height : 10%;
   width : auto;

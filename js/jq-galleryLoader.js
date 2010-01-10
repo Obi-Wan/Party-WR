@@ -49,10 +49,10 @@ function initPhotoFocus( photo_id ) {
 }
 
 function changePhotoAnim() {
-  $("#photoObject").addClass("hidden", 500);
+  $("#photoObject").fadeOut(500);
   setTimeout("document.getElementById('photoObject').src = photosList[photoIndex].src;",
               500);
-  setTimeout("$('#photoObject').removeClass('hidden', 500);",600);
+  setTimeout("$('#photoObject').fadeIn(500);",600);
 }
 
 function putPhotoAnim() {
