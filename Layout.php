@@ -289,45 +289,57 @@ EOT;
     $layersCode = str_replace("[TEMPLATE]","{$this->template}", $layersCode );
 
     foreach ($usedButtons as $button) {
-      $name = $button->nodeValue;
+      $name = "{$button->getElementsByTagName("name")->item(0)->nodeValue}";
 
       // setup image for the component
-      $tempUrlNormal = "{$this->template}/button_{$name}_normal.png";
-      $tempMark = "[" . strtoupper($name) . "-NORMAL]";
-      $layersCode = str_replace($tempMark,$tempUrlNormal, $layersCode );
+      $tempUrlNormal = "{$this->template}/".
+            "{$button->getElementsByTagName("normalImg")->item(0)->nodeValue}";
 
       // setup JS functions for the component
-      $tempMark = "[" . strtoupper($name) . "-FUNCTIONS]";
-      $JScode  = "onclick=\"".$layersProvidedData["functions"][$name]."\" ";
+      $tempMark = 'id="' . $name . '"';
+      $HTMLcode  = $tempMark . ' src="' . $tempUrlNormal . '" ';
+      $HTMLcode .= "onclick=\"".$layersProvidedData["functions"][$name]."\" ";
 
       // setup HoverEffect for the component
-      $tempUrlHover = "{$this->template}/button_{$name}_hover.png";
+      $tempUrlHover = "{$this->template}/".
+            "{$button->getElementsByTagName("hoverImg")->item(0)->nodeValue}";
       $this->hoverHandler->addHoveredImage($tempUrlNormal,$tempUrlHover, $name);
 
-      $JScode .= "onmouseover=\"mouseOver('{$name}')\" ".
+      $HTMLcode .= "onmouseover=\"mouseOver('{$name}')\" ".
                  "onmouseout=\"mouseOut('{$name}')\"";
       $layersCode = str_replace($tempMark,
-                                $JScode,
+                                $HTMLcode,
                                 $layersCode );
     }
 
     foreach ($usedBars as $bar) {
-      $name = "{$bar->nodeValue}_bar";
+      $name = "{$bar->getElementsByTagName("name")->item(0)->nodeValue}";
+      $barImg = "{$name}_bar";
+      $barContainer = "{$name}_container";
 
       // setup image for the component
-      $tempUrlNormal = "{$this->template}/{$name}_normal.png";
-      $tempMark = "[" . mb_strtoupper($name) . "-NORMAL]";
+      $tempUrlNormal = "{$this->template}/".
+                "{$bar->getElementsByTagName("normalImg")->item(0)->nodeValue}";
+      $tempMark = "[" . mb_strtoupper($barImg) . "-NORMAL]";
       $layersCode = str_replace($tempMark,$tempUrlNormal, $layersCode );
 
       // setup JS functions for the component
-      $tempMark = "[" . mb_strtoupper($name) . "-FUNCTION]";
-      $layersCode = str_replace($tempMark,
-                                $layersProvidedData["functions"][$name],
-                                $layersCode );
+//      $tempMark = "[" . mb_strtoupper($name) . "-FUNCTION]";
+//      $layersCode = str_replace($tempMark,
+//                                $layersProvidedData["functions"][$name],
+//                                $layersCode );
 
       // setup HoverEffect for the component
-      $tempUrlHover = "{$this->template}/{$name}_hover.png";
-      $this->hoverHandler->addHoveredImage($tempUrlNormal,$tempUrlHover, $name);
+      $tempUrlHover = "{$this->template}/".
+                "{$bar->getElementsByTagName("hoverImg")->item(0)->nodeValue}";
+      $this->hoverHandler->addHoveredImage($tempUrlNormal,$tempUrlHover, $barImg);
+
+      $tempMark = "[" . strtoupper($barImg) . "-FUNCTIONS]";
+      $HTMLcode = "onmouseover=\"mouseOver('{$barImg}')\" ".
+                "onmouseout=\"mouseOut('{$barImg}')\"";
+      $layersCode = str_replace($tempMark,
+                                $HTMLcode,
+                                $layersCode );
     }
     
     return "$layersCode";

@@ -56,60 +56,101 @@
 <![CDATA[      </div></div>]]>
     </closeCode>
     <menuButton>
-      <code>
-<![CDATA[        <a href="[HREF]" class="menu_button"><img id="[NAME]" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" /></a>]]>
+      <code><![CDATA[
+        <a href="[HREF]" class="button_menu_container">
+          <img id="[NAME]" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />
+        </a>]]>
       </code>
-      <type>input</type>
     </menuButton>
     <submenuButton>
-      <code>
-<![CDATA[          <a href="[HREF]" class="menu_button"><img id="[NAME]" src="[IMAGE-NORMAL]" class="button_submenu" alt="[LEAF]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" /></a>]]>
+      <code><![CDATA[
+          <a href="[HREF]" class="button_menu_container">
+            <img id="[NAME]" src="[IMAGE-NORMAL]" class="button_submenu" alt="[LEAF]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" />
+          </a>]]>
       </code>
-      <type>input</type>
     </submenuButton>
     <expandableButton>
-      <code>
-<![CDATA[        <img id="[NAME]" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" onclick="fold_unfold('[NAME]')" />]]>
+      <code><![CDATA[
+        <div class="button_menu_container">
+          <img id="[NAME]" src="[IMAGE-NORMAL]" class="button_menu" alt="[NAME]" onmouseover="mouseOver('[NAME]')" onmouseout="mouseOut('[NAME]')" onclick="fold_unfold('[NAME]')" />
+        </div>]]>
       </code>
-      <type>img</type>
     </expandableButton>
   </menu>
   <loading>
-    <code>
-<![CDATA[
+    <code><![CDATA[
   <div id="loadingFrame">
     <img id="loading_image" src="[LOADING-IMAGE]">
 
-  </div>
-]]>
+  </div>]]>
     </code>
     <objects>
     </objects>
   </loading>
   <gallery>
-    <code>
-<![CDATA[
+    <code><![CDATA[
   <img id="darkLayer" class="dark_layer" src="[TEMPLATE]/dark_layer.png" />
   <div id="displayerFrame">
-    <img id="buttons_bar" src="[BUTTONS_BAR-NORMAL]" onclick="[BUTTONS_BAR-FUNCTION]">
-    <div id="buttons_container" onmouseover="mouseOver('buttons_bar')" onmouseout="mouseOut('buttons_bar')">
-      <img id="first" class="first_button" src="[FIRST-NORMAL]" [FIRST-FUNCTIONS] />
-      <img id="previous" class="previous_button" src="[PREVIOUS-NORMAL]" [PREVIOUS-FUNCTIONS] />
-      <img id="next" class="next_button" src="[NEXT-NORMAL]" [NEXT-FUNCTIONS] />
-      <img id="last" class="last_button" src="[LAST-NORMAL]" [LAST-FUNCTIONS] />
+    <img id="buttons_bar" src="[BUTTONS_BAR-NORMAL]">
+    <div id="buttons_container" [BUTTONS_BAR-FUNCTIONS]>
+      <img id="first"/>
+      <img id="previous"/>
+      <img id="next"/>
+      <img id="last"/>
     </div>
-   <img id="close" src="[CLOSE-NORMAL]" [CLOSE-FUNCTIONS] />
+   <img id="close"/>
    <img id="photoObject" src="[TEMPLATE]/blank.png" />
-  </div>
-]]>
+  </div>]]>
     </code>
     <objects>
-      <gallery-button>close</gallery-button>
-      <gallery-button>next</gallery-button>
-      <gallery-button>previous</gallery-button>
-      <gallery-button>first</gallery-button>
-      <gallery-button>last</gallery-button>
-      <gallery-bar>buttons</gallery-bar>
+      <gallery-button>
+        <name>close</name>
+        <hover>
+          <type>classic</type>
+          <normalImg>button_close_normal.png</normalImg>
+          <hoverImg>button_close_hover.png</hoverImg>
+        </hover>
+      </gallery-button>
+      <gallery-button>
+        <name>next</name>
+        <hover>
+          <type>classic</type>
+          <normalImg>button_next_normal.png</normalImg>
+          <hoverImg>button_next_hover.png</hoverImg>
+        </hover>
+      </gallery-button>
+      <gallery-button>
+        <name>previous</name>
+        <hover>
+          <type>classic</type>
+          <normalImg>button_previous_normal.png</normalImg>
+          <hoverImg>button_previous_hover.png</hoverImg>
+        </hover>
+      </gallery-button>
+      <gallery-button>
+        <name>first</name>
+        <hover>
+          <type>classic</type>
+          <normalImg>button_first_normal.png</normalImg>
+          <hoverImg>button_first_hover.png</hoverImg>
+        </hover>
+      </gallery-button>
+      <gallery-button>
+        <name>last</name>
+        <hover>
+          <type>classic</type>
+          <normalImg>button_last_normal.png</normalImg>
+          <hoverImg>button_last_hover.png</hoverImg>
+        </hover>
+      </gallery-button>
+      <gallery-bar>
+        <name>buttons</name>
+        <hover>
+          <type>classic</type>
+          <normalImg>buttons_bar_normal.png</normalImg>
+          <hoverImg>buttons_bar_hover.png</hoverImg>
+        </hover>
+      </gallery-bar>
     </objects>
   </gallery>
 </root>

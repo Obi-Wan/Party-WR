@@ -57,11 +57,11 @@ img.gallery_photo_thumb:hover {
   right : 10%;
 }
 
-img.previous_button, img.next_button {
+#previous, #next {
   height : 100%;
 }
 
-img.first_button, img.last_button {
+#first, #last {
   height : 90%;
 }
 
