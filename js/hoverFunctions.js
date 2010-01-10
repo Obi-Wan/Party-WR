@@ -1,13 +1,17 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 function mouseOver( idOgg ) {
-  var elem = document.getElementById( idOgg );
-  elem.src = hoveredImages[idOgg].src;
+  if (listObjImages[idOgg] == "hover") {
+    var elem = document.getElementById( idOgg );
+    elem.src = hoveredImages[idOgg].src;
+  } else if (listObjImages[idOgg] == "shadow") {
+    $("#" + idOgg).show("normal");
+  }
 }
 function mouseOut( idOgg ) {
-  var elem = document.getElementById( idOgg );
-  elem.src = normalImages[idOgg].src;
+  if (listObjImages[idOgg] == "hover") {
+    var elem = document.getElementById( idOgg );
+    elem.src = normalImages[idOgg].src;
+  } else if (listObjImages[idOgg] == "shadow") {
+    $("#" + idOgg).hide("normal");
+  }
 }

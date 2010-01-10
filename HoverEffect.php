@@ -8,14 +8,41 @@ class HoverEffect {
   
   protected $hoveredImages;
   protected $normalImages;
+  protected $shadowImages;
+
+  protected $listOfObjects;
+
+  public function  __construct() {
+    $this->listOfObjects = array();
+    
+    $this->hoveredImages = array();
+    $this->normalImages = array();
+    $this->shadowImages = array();
+  }
   
   public function addHoveredImage( $imageNormal, $imageHovered , $id ) {
-    $this->hoveredImages[$id] = $imageHovered;
-    $this->normalImages[$id] = $imageNormal;
+    if ( !array_key_exists($id, $this->listOfObjects) ) {
+      $this->listOfObjects[$id] = "hover";
+
+      $this->hoveredImages[$id] = $imageHovered;
+      $this->normalImages[$id] = $imageNormal;
+    } else throw new Exception;
+  }
+
+  public function addShadowImage($imageName, $id) {
+    if ( !array_key_exists($id, $this->listOfObjects) ) {
+      $this->listOfObjects[$id] = "shadow";
+
+      $this->shadowImages[$id] = $imageName;
+    } else throw new Exception;
   }
   
   public function initHoveredCache() {
     $output  = '    <script type="text/javascript">'."\n";
+    $output .= "      var listObjImages = new Array();\n";
+    foreach ($this->listOfObjects as $id => $type) {
+      $output .= "      listObjImages[\"$id\"] = \"$type\";\n";
+    }
     $output .= "      var hoveredImages = new Array();\n";
     foreach ($this->hoveredImages as $id => $image) {
       $output .= "      hoveredImages[\"$id\"] = new Image();\n";
@@ -26,6 +53,10 @@ class HoverEffect {
       $output .= "      normalImages[\"$id\"] = new Image();\n";
       $output .= "      normalImages[\"$id\"].src = \"$image\";\n";
     }
+    $output .= "      var shadowImages = new Array();\n";
+    foreach ($this->shadowImages as $id => $image) {
+      $output .= "      shadowImages[\"$id\"] = \"$image\";\n";
+    }
     $output .= "    </script>\n";
     return $output;
   }
@@ -34,5 +65,4 @@ class HoverEffect {
     return '    <script type="text/javascript" src="js/hoverFunctions.js"></script>'."\n";
   }
 }
-  // fine
 ?>
